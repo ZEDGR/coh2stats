@@ -22,6 +22,9 @@ TYPES = ("1v1", "team-of-2", "team-of-3", "team-of-4")
 
 COOKIE = "agegate[passed]=yes; expires=Sat, 17-Nov-2018 18:00:00 GMT; domain=www.companyofheroes.com; path=/leaderboards"
 
+# For CLI-only Linux OS install xvfb and uncomment the following line.
+# dryscrape.start_xvfb()
+
 session = dryscrape.Session(base_url=BASE_URL)
 session.set_attribute('auto_load_images', False)
 session.set_cookie(COOKIE)

@@ -1,0 +1,3 @@
+dryscrape==1.0
+facebook-sdk==2.0.0
+pillow==3.4.2
