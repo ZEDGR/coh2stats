@@ -60,7 +60,7 @@ def search_leaderboards(prefs):
         if page > current_page:
             return results
 
-        print("{0}, {1}, page{2}".format(*prefs, page))
+        print("{0}, {1}, page{2}".format(prefs[0], prefs[1], page))
         matched = session.css(selectors[0])
         for players in matched:
             if players.parent().css(selectors[1]):
