@@ -4,4 +4,5 @@ __pycache__/
 *.sublime-*
 .tox/
 *.png
-*.json
+data.json
+config.json

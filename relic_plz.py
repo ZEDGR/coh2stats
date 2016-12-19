@@ -123,9 +123,10 @@ def main():
     stats_image = Image.open('results.png')
     stats_image = stats_image.crop((0, 0, 960, 1530)).save("results.png")
 
+    config = json.load(open("config.json"))
     fb_cfg = {
-        'page_id': os.environ.get('FB_GROUP_ID'),
-        'access_token': os.environ.get('FB_TOKEN')
+        'page_id': config['FB_GROUP_ID'],
+        'access_token': config['FB_TOKEN']
     }
 
     fb_api = get_fb_api(fb_cfg)
