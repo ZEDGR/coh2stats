@@ -81,6 +81,7 @@ def search_leaderboards(prefs):
                 results.append(d.text().strip())
             if "\n" in results[2]:
                 results[2] = results[2].split(sep="\n")
+            results = cast_to_int(results)
             return dict(zip(headers, results))
         page += 1
 
@@ -94,6 +95,16 @@ def get_fb_api(cfg):
                         page_access_token = page['access_token']
         graph = facebook.GraphAPI(page_access_token)
         return graph
+
+
+def cast_to_int(lst):
+    converted = []
+    for i in lst:
+        try:
+            converted.append(int(i))
+        except (ValueError, TypeError):
+            converted.append(i)
+    return converted
 
 
 def main():
