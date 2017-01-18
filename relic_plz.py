@@ -4,7 +4,7 @@ import json
 import os
 from time import sleep
 from PIL import Image
-
+from concurrent.futures import ThreadPoolExecutor
 
 # Selectors for country. ex. .gr for Greece, .cy for Cyprus
 # you can select one country or many but remember this will
@@ -25,10 +25,6 @@ COOKIE = "agegate[passed]=yes; expires=Sat, 17-Nov-2018 18:00:00 GMT; domain=www
 # For CLI-only Linux OS install xvfb and uncomment the following line.
 # dryscrape.start_xvfb()
 
-session = dryscrape.Session(base_url=BASE_URL)
-session.set_attribute('auto_load_images', False)
-session.set_cookie(COOKIE)
-
 
 def css_country_selectors():
     css = COUNTRY.split(sep=",")
@@ -44,6 +40,10 @@ def css_country_selectors():
 
 
 def search_leaderboards(prefs):
+
+    session = dryscrape.Session(base_url=BASE_URL)
+    session.set_attribute('auto_load_images', True)
+    session.set_cookie(COOKIE)
 
     headers = [
         'rank',
@@ -107,25 +107,37 @@ def cast_to_int(lst):
     return converted
 
 
-def main():
+def export(results, matches):
 
-    matches = []
-    matches.append([(MODES[0], faction) for faction in FACTIONS])
-    for i in range(1, len(MODES)):
-        matches.append([(MODES[i], side) for side in SIDES])
-
-    results = [map(search_leaderboards, match) for match in matches]
+    num_factions = len(FACTIONS)
+    onevone = results[:num_factions]
+    twovtwo = results[num_factions:num_factions + 2]
+    threevthree = results[num_factions + 2:num_factions + 4]
+    fourvfour = results[num_factions + 4:num_factions + 6]
 
     json_data = {
-        MODES[0]: dict(zip(FACTIONS, list(results[0]))),
-        MODES[1]: dict(zip(SIDES, list(results[1]))),
-        MODES[2]: dict(zip(SIDES, list(results[2]))),
-        MODES[3]: dict(zip(SIDES, list(results[3])))
+        MODES[0]: dict(zip(FACTIONS, onevone)),
+        MODES[1]: dict(zip(SIDES, twovtwo)),
+        MODES[2]: dict(zip(SIDES, threevthree)),
+        MODES[3]: dict(zip(SIDES, fourvfour))
     }
     with open("data.json", 'w') as json_file:
         json.dump(json_data, json_file, indent=4)
 
+
+def main():
+
+    matches = []
+    matches.extend((MODES[0], faction) for faction in FACTIONS)
+    for i in range(1, len(MODES)):
+        matches.extend((MODES[i], side) for side in SIDES)
+
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        results = executor.map(search_leaderboards, matches)
+        export(list(results), matches)
+
     path = os.path.dirname(os.path.abspath(__file__))
+    session = dryscrape.Session()
     session.set_attribute('auto_load_images', True)
     session.visit("file://{0}/{1}".format(path, "result.html"))
     sleep(3)
