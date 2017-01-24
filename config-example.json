@@ -1,4 +1,17 @@
 {
-    "FB_GROUP_ID": "YOURGROUPIDTOKEN",
-    "FB_TOKEN": "YOURUSERTOKEN"
+    "headers": {
+        "Host": "somehost",
+        "User-Agent": "user-agent",
+        "Accept": "*/*",
+        "Accept-Language": "",
+        "Referer": "",
+        "Origin": "",
+        "DNT": 1,
+        "Cache-Control": ""
+
+    },
+    "leaderboards": "leaderboards_url",
+    "specific_leaderboard": "specific_leaderboard_url",
+    "fb_group_id": "id",
+    "fb_token": "token"
 }
