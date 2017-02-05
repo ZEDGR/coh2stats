@@ -6,7 +6,7 @@
         "Accept-Language": "",
         "Referer": "",
         "Origin": "",
-        "DNT": 1,
+        "DNT": "1",
         "Cache-Control": ""
 
     },

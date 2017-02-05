@@ -1,5 +1,5 @@
-# import asyncio
-# import aiohttp
+import asyncio
+import aiohttp
 import json
 import urllib.request
 import urllib.parse
@@ -32,7 +32,6 @@ def get_leaderboards():
     params = {'title': "coh2"}
 
     response = request(CONFIG['leaderboards'], params, CONFIG['headers'])
-    # response = json.load(open("export.json"))
 
     id1v1 = None
     # get 1v1 matchtype id
@@ -54,8 +53,7 @@ def get_leaderboards():
     return matchtypes
 
 
-def get_results(matchtype_id, sortBy=1, step=40, count=40):
-    # response = json.load(open("first.json"))
+async def get_results(matchtype, matchtype_id, sortBy=1, step=40, count=40):
 
     params = {
         'leaderboard_id': matchtype_id,
@@ -68,7 +66,8 @@ def get_results(matchtype_id, sortBy=1, step=40, count=40):
 
     while True:
 
-        response = request(CONFIG['specific_leaderboard'], params, CONFIG['headers'])
+        response = await aiohttp.get(CONFIG['specific_leaderboard'], params=params, headers=CONFIG['headers'])
+        response = await response.json()
 
         # if the leaderboardStats array is empty
         # we have exhausted this category
@@ -82,13 +81,13 @@ def get_results(matchtype_id, sortBy=1, step=40, count=40):
                 if stats['statGroup_id'] == group['id']:
                     found = all(member['country'] in COUNTRIES for member in group['members'])
                     if found:
-                        print("found for matchtype:", matchtype_id)
+                        print("found for matchtype:", matchtype)
                         results = dict(stats)
                         results['total'] = results['wins'] + results['losses']
                         results['ratio'] = "{:.0%}".format(results['wins'] / results['total'])
                         results['players'] = [{'name': member['alias'], 'country': member['country']} for member in group['members']]
                         results['last_game'] = get_last_game_datetime(results['lastMatchDate'])
-                        return results
+                        return (matchtype, results)
 
 
 def get_last_game_datetime(date):
@@ -142,17 +141,20 @@ def get_fb_api(cfg):
         return graph
 
 
-def main():
+async def main():
 
     matchtypes = get_leaderboards()
-    results = [(matchtype, get_results(matchtype_id)) for matchtype, matchtype_id in matchtypes.items()]
-    results = normalize(results)
+    results = [asyncio.ensure_future(get_results(matchtype, matchtype_id)) for matchtype, matchtype_id in matchtypes.items()]
+    completed, pending = await asyncio.wait(results)
+    results = normalize([task.result() for task in completed])
     with open("newdata.json", 'w') as json_file:
         json.dump(results, json_file, indent=4)
 
     path = os.path.dirname(os.path.abspath(__file__))
     session = dryscrape.Session()
+    print("I am here!")
     session.visit("file://{0}/{1}".format(path, "result.html"))
+    print("I am here!")
     sleep(3)
     session.render("results.png")
 
@@ -170,4 +172,8 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    eloop = asyncio.get_event_loop()
+    try:
+        eloop.run_until_complete(main())
+    finally:
+        eloop.close()
