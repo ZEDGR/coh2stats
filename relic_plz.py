@@ -85,7 +85,9 @@ async def get_results(matchtype, matchtype_id, sortBy=1, step=40, count=40):
                         results = dict(stats)
                         results['total'] = results['wins'] + results['losses']
                         results['ratio'] = "{:.0%}".format(results['wins'] / results['total'])
-                        results['players'] = [{'name': member['alias'], 'country': member['country']} for member in group['members']]
+                        results['players'] = [
+                            {'name': member['alias'], 'country': member['country']}
+                            for member in group['members']]
                         results['last_game'] = get_last_game_datetime(results['lastMatchDate'])
                         return (matchtype, results)
 
@@ -144,7 +146,9 @@ def get_fb_api(cfg):
 async def main():
 
     matchtypes = get_leaderboards()
-    results = [asyncio.ensure_future(get_results(matchtype, matchtype_id)) for matchtype, matchtype_id in matchtypes.items()]
+    results = [
+        asyncio.ensure_future(get_results(matchtype, matchtype_id))
+        for matchtype, matchtype_id in matchtypes.items()]
     completed, pending = await asyncio.wait(results)
     results = normalize([task.result() for task in completed])
     with open("newdata.json", 'w') as json_file:
@@ -152,9 +156,7 @@ async def main():
 
     path = os.path.dirname(os.path.abspath(__file__))
     session = dryscrape.Session()
-    print("I am here!")
     session.visit("file://{0}/{1}".format(path, "result.html"))
-    print("I am here!")
     sleep(3)
     session.render("results.png")
 
