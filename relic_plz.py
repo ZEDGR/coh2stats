@@ -151,7 +151,7 @@ async def main():
         for matchtype, matchtype_id in matchtypes.items()]
     completed, pending = await asyncio.wait(results)
     results = normalize([task.result() for task in completed])
-    with open("newdata.json", 'w') as json_file:
+    with open("data.json", 'w') as json_file:
         json.dump(results, json_file, indent=4)
 
     path = os.path.dirname(os.path.abspath(__file__))
