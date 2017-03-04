@@ -12,6 +12,10 @@ from PIL import Image
 
 CONFIG = json.load(open("config.json"))
 
+# For GUI-less OS uncomment the line below
+# dryscrape.start_xvfb()
+
+# Countries selection
 COUNTRIES = ("gr", "cy")
 
 
@@ -22,7 +26,7 @@ def request(url, params, headers):
     request = urllib.request.Request(url, headers=headers)
 
     response = urllib.request.urlopen(request)
-    return json.load(response)
+    return json.loads(response.read().decode('utf-8'))
 
 
 def get_leaderboards():
@@ -72,7 +76,44 @@ async def get_results(matchtype, matchtype_id, sortBy=1, step=40, count=40):
         # if the leaderboardStats array is empty
         # we have exhausted this category
         if not response['leaderboardStats']:
-            return None
+            stats = {
+                "regionRankTotal": 0,
+                "rank": 0,
+                "rankTotal": 0,
+                "disputes": 0,
+                "wins": 0,
+                "drops": 0,
+                "losses": 0,
+                "players": [
+                    {
+                        "country": "gr",
+                        "name": "-"
+                    },
+                    {
+                        "country": "gr",
+                        "name": "-"
+                    },
+                    {
+                        "country": "gr",
+                        "name": "-"
+                    },
+                    {
+                        "country": "gr",
+                        "name": "-"
+                    }
+                ],
+                "streak": 0,
+                "statGroup_id": 0,
+                "regionRank": 0,
+                "ratio": "-",
+                "total": 0,
+                "counters": "-",
+                "leaderboard_id": 0,
+                "last_game": "-",
+                "lastMatchDate": 0,
+                "rankLevel": 0
+            }
+            return (matchtype, stats)
 
         params['start'] += step
 
@@ -169,7 +210,7 @@ async def main():
     }
 
     fb_api = get_fb_api(fb_cfg)
-    msg = open("message.txt", 'r').read()
+    msg = open("message.txt", 'r', encoding='utf-8').read()
     fb_api.put_photo(image=open("results.png", 'rb'), message=msg)
 
 
