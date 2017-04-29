@@ -11,10 +11,11 @@ and post them to a facebook page.
 - dryscrape
 - pillow
 - facebook-sdk
+- aiohttp
 
 ### Python version support:
 
-- 3.4+
+- 3.5+
 
 ### Usage
 
