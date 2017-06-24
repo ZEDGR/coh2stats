@@ -1,0 +1,515 @@
+<!DOCTYPE html><html><head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="shortcut icon" href="//assets.companyofheroes.com/sites/all/themes/best_responsive/favicon.ico" type="image/vnd.microsoft.icon">
+<link rel="dns-prefetch" href="//assets.companyofheroes.com">
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<meta name="generator" content="Drupal 7 (http://drupal.org)">
+<link rel="canonical" href="http://www.companyofheroes.com/leaderboards">
+<link rel="shortlink" href="http://www.companyofheroes.com/leaderboards">
+<title>Leaderboards | Company of Heroes</title>
+<link type="text/css" rel="stylesheet" href="assets/tidy.css" media="all">
+<script src="assets/jquery.min.js"></script>
+<style>
+    .player-profile.lb-container .faction-standings .team-list .flag {
+      width: auto;
+      margin-left: 20px;
+      padding-left: 20px;
+      white-space: nowrap;
+      color: #24bfff;
+      font-weight: bold;
+    }
+    .winning {
+      color: #aaff00;
+    }
+    .losing {
+      color: #d9060f;
+    }
+    td.rank {
+        color: #c39c53;
+    }
+    td.level {
+        color: white !important;
+    }
+</style>
+</head>
+<body class="html not-front not-logged-in no-sidebars page-leaderboards i18n-en" style="background-color: black;">
+
+<div id="wrap" class="clearfix" style="padding-top: 0px;">
+  <div id="main-content" class="clearfix">
+        <div id="primary" class="container   clearfix">
+      <section id="content" role="main" class="clearfix">
+                                <div id="content-wrap">
+                    <h1 class="page-title">Leaderboards</h1><div class="region region-content">
+<div id="block-system-main" class="block block-system">
+      
+  <div class="content">
+<div id="lb_source">
+  <div class="lb-host lang en">
+    <h1 class="coh2-logo">
+      <img alt="Company of Heroes 2" src="assets/images/coh2-logo.png">
+      <img alt="Greek Flag" width="100" height="61" src="assets/images/flag.jpg">
+    </h1>
+    <article>
+<article class="player-profile lb-container" style="width: 900px;">
+  <header>
+    <div class="title-area">
+      <h1 class="page-title">Community Rankings</h1>
+  </div></header>
+  <div class="content-area" style="width: 1200px;">
+    <section class="tab-container standings-breakdown">
+        <h2>
+          <img src="assets/images/md_0_001.png" title="Wehrmacht">
+          <span>Wehrmacht</span>
+        </h2>
+        <div class="faction-standings-container">
+        <table class="faction-standings">
+          <thead>
+            <tr>
+              <th class="mode">Name</th>
+              <th class="rank">Rank</th>
+              <th class="rank">Level</th>
+              <th class="streak">Streak</th>
+              <th class="wins">Wins</th>
+              <th class="losses">Losses</th>
+              <th class="ratio">Ratio</th>
+              <th class="total">Total</th>
+              <th class="last">Last Game</th>
+            </tr>
+          </thead>
+          <tbody id="German">
+            <tr>
+              <td class="mode f16">
+                <h3>
+                  <a id="german-name" class="standing-link" href="#">PlayerName</a>
+                </h3>
+              </td>
+              <td class="rank">-</td>
+              <td class="level">
+                <span>-</span>
+              </td>
+              <td class="streak">-</td>
+              <td class="wins">-</td>
+              <td class="losses">-</td>
+              <td class="ratio">-</td>
+              <td class="total">-</td>
+              <td class="last">-</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+
+      
+        <h2>
+          <img src="assets/images/md_1.png" title="Soviet">
+          <span>Soviet</span>
+        </h2>
+        <div class="faction-standings-container">
+        <table class="faction-standings">
+          <thead>
+            <tr>
+              <th class="mode">Name</th>
+              <th class="rank">Rank</th>
+              <th class="rank">Level</th>
+              <th class="streak">Streak</th>
+              <th class="wins">Wins</th>
+              <th class="losses">Losses</th>
+              <th class="ratio">Ratio</th>
+              <th class="total">Total</th>
+              <th class="last">Last Game</th>
+            </tr>
+          </thead>
+          <tbody id="Soviet">
+            <tr>
+              <td class="mode f16">
+                <h3>
+                  <a class="standing-link" href="#">PlayerName</a>
+                </h3>
+              </td>
+              <td class="rank">-</td>
+              <td class="level">
+                <span>-</span>
+              </td>
+              <td class="streak">-</td>
+              <td class="wins">-</td>
+              <td class="losses">-</td>
+              <td class="ratio">-</td>
+              <td class="total">-</td>
+              <td class="last">-</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+
+      
+        <h2>
+          <img src="assets/images/md_2.png" title="Oberkommando West">
+          <span>Oberkommando West</span>
+        </h2>
+        <div class="faction-standings-container">
+        <table class="faction-standings">
+          <thead>
+            <tr>
+              <th class="mode">Name</th>
+              <th class="rank">Rank</th>
+              <th class="rank">Level</th>
+              <th class="streak">Streak</th>
+              <th class="wins">Wins</th>
+              <th class="losses">Losses</th>
+              <th class="ratio">Ratio</th>
+              <th class="total">Total</th>
+              <th class="last">Last Game</th>
+            </tr>
+          </thead>
+          <tbody id="WestGerman">
+            <tr>
+              <td class="mode f16">
+                <h3>
+                  <a class="standing-link" href="#">Playename</a>
+                </h3>
+              </td>
+              <td class="rank">-</td>
+              <td class="level">
+                <span>-</span>
+              </td>
+              <td class="streak">-</td>
+              <td class="wins">-</td>
+              <td class="losses">-</td>
+              <td class="ratio">-</td>
+              <td class="total">-</td>
+              <td class="last">-</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+
+      
+        <h2>
+          <img src="assets/images/md_3.png" title="US Forces">
+          <span>US Forces</span>
+        </h2>
+        <div class="faction-standings-container">
+        <table class="faction-standings">
+          <thead>
+            <tr>
+              <th class="mode">Name</th>
+              <th class="rank">Rank</th>
+              <th class="rank">Level</th>
+              <th class="streak">Streak</th>
+              <th class="wins">Wins</th>
+              <th class="losses">Losses</th>
+              <th class="ratio">Ratio</th>
+              <th class="total">Total</th>
+              <th class="last">Last Game</th>
+            </tr>
+          </thead>
+          <tbody id="AEF">
+            <tr>
+              <td class="mode f16">
+                <h3>
+                  <a class="standing-link" href="#">PlayerName</a>
+                </h3>
+              </td>
+              <td class="rank">-</td>
+              <td class="level">
+                <span>-</span>
+              </td>
+              <td class="streak">-</td>
+              <td class="wins">-</td>
+              <td class="losses">-</td>
+              <td class="ratio">-</td>
+              <td class="total">-</td>
+              <td class="last">-</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+
+      
+        <h2>
+          <img src="assets/images/md_4.png" title="British Forces">
+          <span>British Forces</span>
+        </h2>
+        <div class="faction-standings-container">
+        <table class="faction-standings">
+          <thead>
+            <tr>
+              <th class="mode">Name</th>
+              <th class="rank">Rank</th>
+              <th class="rank">Level</th>
+              <th class="streak">Streak</th>
+              <th class="wins">Wins</th>
+              <th class="losses">Losses</th>
+              <th class="ratio">Ratio</th>
+              <th class="total">Total</th>
+              <th class="last">Last Game</th>
+            </tr>
+          </thead>
+          <tbody id="British">
+            <tr>
+              <td class="mode f16">
+                <h3>
+                  <a class="standing-link" href="#">PlayerName</a>
+                </h3>
+              </td>
+              <td class="rank">-</td>
+              <td class="level">
+                <span>-</span>
+              </td>
+              <td class="streak">-</td>
+              <td class="wins">-</td>
+              <td class="losses">-</td>
+              <td class="ratio">-</td>
+              <td class="total">-</td>
+              <td class="last">-</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      
+        <h2>
+          <img src="assets/images/md_0.png" title="Allies">
+          <span>Allies</span>
+        </h2>
+        <div class="faction-standings-container">
+        <table class="faction-standings team-standings">
+          <thead>
+            <tr>
+              <th class="mode">Mode</th>
+              <th class="rank">Rank</th>
+              <th class="rank">Level</th>
+              <th class="streak">Streak</th>
+              <th class="wins">Wins</th>
+              <th class="losses">Losses</th>
+              <th class="ratio">Ratio</th>
+              <th class="total">Total</th>
+              <th class="last">Last Game</th>
+            </tr>
+          </thead>
+          <tbody id="Allies">
+            <tr class="team-of-2">
+              <td class="mode f16 team-list">
+                <h3>
+                  <a class="standing-link" href="#">Team of 2</a>
+                </h3>
+
+              </td>
+              <td class="rank">-</td>
+              <td class="level">
+                  <span>-</span>
+              </td>
+              <td class="streak">-</td>
+              <td class="wins">-</td>
+              <td class="losses">-</td>
+              <td class="ratio">-</td>
+              <td class="total">-</td>
+              <td class="last">-</td>
+            </tr>
+          
+            <tr class="team-of-3">
+              <td class="mode f16 team-list">
+                <h3>
+                  <a class="standing-link" href="#">Team of 3</a>
+                </h3>
+
+              </td>
+              <td class="rank">-</td>
+              <td class="level">
+                  <span>-</span>
+              </td>
+              <td class="streak">-</td>
+              <td class="wins">-</td>
+              <td class="losses">-</td>
+              <td class="ratio">-</td>
+              <td class="total">-</td>
+              <td class="last">-</td>
+            </tr>          
+            <tr class="team-of-4">
+              <td class="mode f16 team-list">
+                <h3>
+                  <a class="standing-link" href="#">Team of 4</a>
+                </h3>
+
+              </td>
+              <td class="rank">-</td>
+              <td class="level">
+                <span>-</span>
+              </td>
+              <td class="streak">-</td>
+              <td class="wins">-</td>
+              <td class="losses">-</td>
+              <td class="ratio">-</td>
+              <td class="total">-</td>
+              <td class="last">-</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+
+      
+        <h2>
+          <img src="assets/images/md_1_001.png" title="Axis">
+          <span>Axis</span>
+        </h2>
+        <div class="faction-standings-container">
+        <table class="faction-standings team-standings">
+          <thead>
+            <tr>
+              <th class="mode">Mode</th>
+              <th class="rank">Rank</th>
+              <th class="rank">Level</th>
+              <th class="streak">Streak</th>
+              <th class="wins">Wins</th>
+              <th class="losses">Losses</th>
+              <th class="ratio">Ratio</th>
+              <th class="total">Total</th>
+              <th class="last">Last Game</th>
+            </tr>
+          </thead>
+          <tbody id="Axis">
+            <tr class="team-of-2">
+              <td class="mode f16 team-list">
+                <h3>
+                  <a class="standing-link" href="#">Team of 2</a>
+                </h3>
+
+              </td>
+              <td class="rank">-</td>
+              <td class="level">
+                  <span>-</span>
+              </td>
+              <td class="streak">-</td>
+              <td class="wins">-</td>
+              <td class="losses">-</td>
+              <td class="ratio">-</td>
+              <td class="total">-</td>
+              <td class="last">-</td>
+            </tr>
+          
+            <tr class="team-of-3">
+              <td class="mode f16 team-list">
+                <h3>
+                  <a class="standing-link" href="#">Team of 3</a>
+                </h3>
+
+              </td>
+              <td class="rank">-</td>
+              <td class="level">
+                  <span>-</span>
+              </td>
+              <td class="streak">-</td>
+              <td class="wins">-</td>
+              <td class="losses">-</td>
+              <td class="ratio">-</td>
+              <td class="total">-</td>
+              <td class="last">-</td>
+            </tr>          
+            <tr class="team-of-4">
+              <td class="mode f16 team-list">
+                <h3>
+                  <a class="standing-link" href="#">Team of 4</a>
+                </h3>
+
+              </td>
+              <td class="rank">-</td>
+              <td class="level">
+                  <span>-</span>
+              </td>
+              <td class="streak">-</td>
+              <td class="wins">-</td>
+              <td class="losses">-</td>
+              <td class="ratio">-</td>
+              <td class="total">-</td>
+              <td class="last">-</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+    </section>
+  </div>
+</article>
+    </article>
+  </div>
+</div>
+  </div>
+  
+</div>
+</div>
+        </div>
+      </section>
+          </div>
+  </div>
+</div>
+<script>
+    $(document).ready(function() {
+      $.ajaxSetup({beforeSend: function(xhr){
+          if (xhr.overrideMimeType) {
+            xhr.overrideMimeType("application/json");
+          }
+        }
+      });
+        $.getJSON("data.json", function(data){
+            $.each(data['1v1'], function(i, obj) {
+                $("#"+i+" tr td h3 a").text(obj['players'][0]['name']);
+                $("#"+i+" tr td:nth-child(2)").text(obj['rank']);
+                $("#"+i+" tr td:nth-child(3)").text(obj['rankLevel']);
+                $("#"+i+" tr td:nth-child(4)").text(obj['streak']);
+                $("#"+i+" tr td:nth-child(5)").text(obj['wins']);
+                $("#"+i+" tr td:nth-child(6)").text(obj['losses']);
+                $("#"+i+" tr td:nth-child(7)").text(obj['ratio']);
+                $("#"+i+" tr td:nth-child(8)").text(obj['total']);
+                $("#"+i+" tr td:nth-child(9)").text(obj['last_game']);
+
+            });
+
+            $.each(data, function(i, obj) {
+                    if ("1v1" == i) {
+                      return true;
+                    }
+                    for(var key in obj) {
+
+                      var selector = "#"+key+" ."+i+" td:first-child";
+                        if ($.isEmptyObject(obj[key])) {
+                          var max = parseInt(i.slice(-1));
+                          for (var c=0;c<max;c++) {
+                            var value = '<a href="#" class="flag gr player-link"></a><br>';
+                            $(selector).append(value);
+                          }
+                        }
+
+
+                        for(var index in obj[key]['players']) {
+                            var player = obj[key]['players'][index]['name'];
+                            var value = '<a href="#" class="flag gr player-link">'+player+'</a><br>';
+                            $(selector).append(value);
+                        }
+                        $("#"+key+" ."+i+" td:nth-child(2)").text(obj[key]['rank']);
+                        $("#"+key+" ."+i+" td:nth-child(3)").text(obj[key]['rankLevel']);
+                        $("#"+key+" ."+i+" td:nth-child(4)").text(obj[key]['streak']);
+                        $("#"+key+" ."+i+" td:nth-child(5)").text(obj[key]['wins']);
+                        $("#"+key+" ."+i+" td:nth-child(6)").text(obj[key]['losses']);
+                        $("#"+key+" ."+i+" td:nth-child(7)").text(obj[key]['ratio']);
+                        $("#"+key+" ."+i+" td:nth-child(8)").text(obj[key]['total']);
+                        $("#"+key+" ."+i+" td:nth-child(9)").text(obj[key]['last_game']);
+
+                    }
+            });
+
+            $("td.streak").each(function(index) {
+                $(this).addClass("streak");
+                if($(this).text() > 0 ) {
+                    var val = $(this).text()
+                    $(this).text("+"+val)
+                    $(this).addClass("winning");
+                }
+                else if($(this).text() < 0) {
+                    $(this).addClass("losing");
+                }
+            });
+        });
+
+    });
+</script>
+
+</body></html>
