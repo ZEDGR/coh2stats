@@ -4,6 +4,7 @@ import json
 import urllib.request
 import urllib.parse
 import datetime
+import pymongo
 import os
 import facebook
 import dryscrape
@@ -57,7 +58,7 @@ def get_leaderboards():
     return matchtypes
 
 
-async def get_results(matchtype, matchtype_id, sortBy=1, step=40, count=40):
+async def get_results(matchtype, matchtype_id, aio_session, sortBy=1, step=40, count=40):
 
     params = {
         'leaderboard_id': matchtype_id,
@@ -68,69 +69,70 @@ async def get_results(matchtype, matchtype_id, sortBy=1, step=40, count=40):
         'count': count
     }
 
+
     while True:
 
-        response = await aiohttp.get(CONFIG['specific_leaderboard'], params=params, headers=CONFIG['headers'])
-        response = await response.json()
+        async with aio_session.get(CONFIG['specific_leaderboard'], params=params, headers=CONFIG['headers']) as response:
+            response = await response.json()
 
-        # if the leaderboardStats array is empty
-        # we have exhausted this category
-        if not response['leaderboardStats']:
-            stats = {
-                "regionRankTotal": 0,
-                "rank": 0,
-                "rankTotal": 0,
-                "disputes": 0,
-                "wins": 0,
-                "drops": 0,
-                "losses": 0,
-                "players": [
-                    {
-                        "country": "gr",
-                        "name": "-"
-                    },
-                    {
-                        "country": "gr",
-                        "name": "-"
-                    },
-                    {
-                        "country": "gr",
-                        "name": "-"
-                    },
-                    {
-                        "country": "gr",
-                        "name": "-"
-                    }
-                ],
-                "streak": 0,
-                "statGroup_id": 0,
-                "regionRank": 0,
-                "ratio": "-",
-                "total": 0,
-                "counters": "-",
-                "leaderboard_id": 0,
-                "last_game": "-",
-                "lastMatchDate": 0,
-                "rankLevel": 0
-            }
-            return (matchtype, stats)
+            # if the leaderboardStats array is empty
+            # we have exhausted this category
+            if not response['leaderboardStats']:
+                stats = {
+                    "regionRankTotal": 0,
+                    "rank": 0,
+                    "rankTotal": 0,
+                    "disputes": 0,
+                    "wins": 0,
+                    "drops": 0,
+                    "losses": 0,
+                    "players": [
+                        {
+                            "country": "gr",
+                            "name": "-"
+                        },
+                        {
+                            "country": "gr",
+                            "name": "-"
+                        },
+                        {
+                            "country": "gr",
+                            "name": "-"
+                        },
+                        {
+                            "country": "gr",
+                            "name": "-"
+                        }
+                    ],
+                    "streak": 0,
+                    "statGroup_id": 0,
+                    "regionRank": 0,
+                    "ratio": "-",
+                    "total": 0,
+                    "counters": "-",
+                    "leaderboard_id": 0,
+                    "last_game": "-",
+                    "lastMatchDate": 0,
+                    "rankLevel": 0
+                }
+                return (matchtype, stats)
 
-        params['start'] += step
+            params['start'] += step
 
-        for stats in response['leaderboardStats']:
-            for group in response['statGroups']:
-                if stats['statGroup_id'] == group['id']:
-                    found = all(member['country'] in COUNTRIES for member in group['members'])
-                    if found:
-                        print("found for matchtype:", matchtype)
-                        results = dict(stats)
-                        results['total'] = results['wins'] + results['losses']
-                        results['ratio'] = "{:.0%}".format(results['wins'] / results['total'])
-                        results['players'] = [
-                            {'name': member['alias'], 'country': member['country']}
-                            for member in group['members']]
-                        results['last_game'] = get_last_game_datetime(results['lastMatchDate'])
-                        return (matchtype, results)
+            for stats in response['leaderboardStats']:
+                for group in response['statGroups']:
+                    if stats['statGroup_id'] == group['id']:
+                        found = all(member['country'] in COUNTRIES for member in group['members'])
+                        if found:
+                            print("found for matchtype:", matchtype)
+                            results = dict(stats)
+                            results['total'] = results['wins'] + results['losses']
+                            results['ratio'] = "{:.0%}".format(results['wins'] / results['total'])
+                            results['players'] = [
+                                {'name': member['alias'], 'country': member['country']}
+                                for member in group['members']]
+                            results['last_game'] = get_last_game_datetime(results['lastMatchDate'])
+                            return (matchtype, results)
 
 
 def get_last_game_datetime(date):
@@ -185,15 +187,25 @@ def get_fb_api(cfg):
 
 
 async def main():
-
     matchtypes = get_leaderboards()
-    results = [
-        asyncio.ensure_future(get_results(matchtype, matchtype_id))
+
+    async with aiohttp.ClientSession() as aio_session:
+        results = [
+        asyncio.ensure_future(get_results(matchtype, matchtype_id, aio_session))
         for matchtype, matchtype_id in matchtypes.items()]
-    completed, pending = await asyncio.wait(results)
-    results = normalize([task.result() for task in completed])
+
+        completed, pending = await asyncio.wait(results)
+
+        results = normalize([task.result() for task in completed])
+
     with open("data.json", 'w') as json_file:
         json.dump(results, json_file, indent=4)
+
+    # Connect to a local MongoDB and store the results
+    mongo_client = pymongo.MongoClient()
+    grstats = mongo_client.coh2stats.grstats
+    results = {'test': True, 'created_at': datetime.datetime.utcnow(), 'stats': results}
+    grstats.insert(results)
 
     path = os.path.dirname(os.path.abspath(__file__))
     session = dryscrape.Session()
@@ -205,7 +217,7 @@ async def main():
     stats_image = stats_image.crop((0, 0, 960, 1530)).save("results.png")
 
     fb_cfg = {
-        'page_id': CONFIG['fb_group_id'],
+        'page_id': CONFIG['fb_test_group_id'],
         'access_token': CONFIG['fb_token']
     }
 
