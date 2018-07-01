@@ -1,0 +1,363 @@
+img {
+    border: 0;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th {
+    border-bottom: 3px solid #ccc;
+    padding-right: 1em;
+    text-align: left;
+}
+
+tbody {
+    border-top: 1px solid #ccc;
+}
+
+
+.f16 {
+    background-position: 0 -16px;
+}
+
+body {
+    width: 100%;
+    *zoom: 1;
+}
+
+body:before,
+body:after {
+    content: "";
+    display: table;
+}
+
+body:after {
+    clear: both;
+}
+
+.lb-host {
+    padding-top: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.lb-host .coh2-logo {
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+body {
+    background: #000;
+    min-width: 1200px;
+}
+
+.lb-container {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 400;
+    min-height: 1073px;
+    font-size: 14px;
+    width: 1200px;
+    background-color: #171717;
+    position: relative;
+    left: 50%;
+    margin-left: -600px !important;
+    color: #ffffff;
+    padding: 10px 25px 25px;
+}
+
+.lb-container img {
+    max-width: none;
+}
+
+.lb-container h1,
+.lb-container h2,
+.lb-container h3 {
+    text-transform: none;
+}
+
+.lb-container h1.page-title {
+    color: #ffffff;
+    font-family: 'Ubuntu', sans-serif;
+    text-transform: uppercase;
+    font-size: 38px;
+    font-weight: 900;
+    margin: 0 0 6px 0;
+    padding: 0;
+}
+
+.lb-container h1 {
+    color: #ffffff;
+}
+
+.lb-container table,
+.lb-container th,
+.lb-container td {
+    background: inherit;
+    border: none;
+}
+
+.lb-container tr {
+    border-bottom: 1px solid #575759;
+    padding: 0px;
+}
+
+.lb-container tbody tr:hover {
+    background-color: #535353;
+}
+
+.lb-container tbody tr {
+    text-align: right;
+}
+
+.lb-container table {
+    border: none;
+    border-spacing: 0px;
+    width: 100%;
+}
+
+.lb-container th {
+    text-transform: uppercase;
+}
+
+.lb-container td,
+.lb-container th {
+    padding: 5px;
+    vertical-align: middle;
+    line-height: 20px;
+}
+
+.lb-container .tab-container {
+    border: 1px solid #575759;
+    background-color: #2d2d30;
+    padding: 12px;
+    min-height: 773px;
+}
+
+.player-profile.lb-container h2 {
+    color: #ffffff;
+}
+
+.player-profile.lb-container header {
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+
+.player-profile.lb-container .title-area {
+    position: relative;
+}
+
+.player-profile.lb-container .content-area {
+    display: block;
+    width: 102.08333333%;
+    margin: 0 -1.04166667%;
+    *zoom: 1;
+}
+
+.player-profile.lb-container .content-area:before,
+.player-profile.lb-container .content-area:after {
+    content: "";
+    display: table;
+}
+
+.player-profile.lb-container .content-area:after {
+    clear: both;
+}
+
+.player-profile.lb-container .tab-container {
+    display: inline;
+    float: left;
+    width: 72.91666667%;
+    -ms-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 73.95833333%;
+    margin-left: 15%;
+}
+
+.player-profile.lb-container .faction-standings-container {
+    padding: 8px 14px 0;
+}
+
+.player-profile.lb-container .faction-standings {
+    margin: -9px auto 22px;
+    width: 100%;
+}
+
+.player-profile.lb-container .faction-standings .standing-link {
+    color: inherit;
+    font-weight: inherit;
+}
+
+.player-profile.lb-container .faction-standings .standing-link:hover {
+    color: inherit;
+    font-weight: inherit;
+    text-decoration: underline;
+}
+
+.player-profile.lb-container .faction-standings thead {
+    color: #999;
+}
+
+.player-profile.lb-container .faction-standings td,
+.player-profile.lb-container .faction-standings th {
+    text-align: center;
+}
+
+.player-profile.lb-container .faction-standings h3 {
+    color: #ffffff;
+    font-weight: normal;
+    font-size: inherit;
+    text-shadow: none;
+}
+
+.player-profile.lb-container .standings-breakdown h2 {
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 0 10px;
+}
+
+.player-profile.lb-container .standings-breakdown h2 img {
+    vertical-align: middle;
+    width: 32px;
+}
+
+.f32 {
+    background-position: 0 -32px;
+}
+
+
+html,
+body,
+div,
+span,
+h1,
+h2,
+h3,
+a,
+img,
+table,
+tbody,
+thead,
+tr,
+th,
+td,
+article,
+header,
+section {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+article,
+header,
+section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+body {
+    background: #000;
+    font: 14px/1.8 'Ubuntu', sans-serif;
+    color: #666;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+}
+
+img {
+    max-width: 100%;
+}
+
+h1,
+h2,
+h3 {
+    color: #000;
+}
+
+h3 a {
+    color: #000;
+}
+
+h3 a:hover {
+    text-decoration: none;
+}
+
+h1 {
+    font-size: 1.714em;
+    margin: 0 0 20px;
+}
+
+h2 {
+    font-size: 1.286em;
+}
+
+h3 {
+    font-size: 1.286em;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:focus {
+    outline: 0;
+}
+
+a {
+    outline: 0;
+}
+
+a:focus {
+    outline: 0;
+}
+
+h1.page-title {
+    font-size: 2em;
+    line-height: 1.2em;
+    margin-bottom: 10px;
+}
+
+.player-profile.lb-container .faction-standings .team-list .flag {
+    width: auto;
+    margin-left: 20px;
+    padding-left: 20px;
+    white-space: nowrap;
+    color: #24bfff;
+    font-weight: bold;
+}
+.winning {
+    color: #aaff00;
+}
+.losing {
+    color: #d9060f;
+}
+td.rank {
+    color: #c39c53;
+}
+
+h1.page-title {
+    text-align: center;
+}
+
+div.content-area {
+    margin-left: 300px;
+}
+
+/*.standings-breakdown {
+    margin-left: 15%;
+}
+*/
