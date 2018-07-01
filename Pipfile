@@ -7,6 +7,8 @@ name = "pypi"
 aiohttp = "==1.2.0"
 pymongo = "*"
 flask = "*"
+gunicorn = "*"
+meinheld = "*"
 
 [dev-packages]
 
