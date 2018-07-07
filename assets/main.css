@@ -378,3 +378,20 @@ div.content-area {
 .near_deactivation {
     color: #e07075;
 }
+
+i.new {
+    color: #f99909;
+}
+
+i.up {
+    color: #07bf07;
+}
+
+i.down {
+    color: #fc0505;
+}
+
+i.stable {
+    padding-bottom: 10px;
+    color: #aa8b0b;
+}

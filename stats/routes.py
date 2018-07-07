@@ -1,5 +1,6 @@
 from flask import render_template, Blueprint
-from stats.utils import set_last_game
+from stats.utils import get_players_stats
+from stats.utils import get_teams_stats
 import pymongo
 import os
 
@@ -16,17 +17,10 @@ stats = Blueprint('stats', __name__)
 def weeklystats_1v1():
     collection = db_client.coh2stats.weeklystats
 
-    results = collection.find({}, {'created_at': 1, 'stats.1v1': 1, '_id': 0}).sort('created_at', -1).limit(1).next()
+    current_results, previous_results = list(collection.find({}, {'created_at': 1, 'stats.1v1': 1, '_id': 0}).sort('created_at', -1).limit(2))
+    stats = get_players_stats(current_results, previous_results)
 
-    sorted_results = {}
-
-    for faction, players in results['stats']['1v1'].items():
-        faction = faction.lower()
-        sorted_results[faction] = sorted(players, key=lambda k: k['rank'])
-        for player in sorted_results[faction]:
-            player['last_game'] = set_last_game(results['created_at'], player['last_match_date'])
-
-    return render_template('results_1v1.html', stats=sorted_results)
+    return render_template('results_1v1.html', stats=stats)
 
 
 @stats.route('/weeklystats/teams/static')
@@ -40,21 +34,7 @@ def weeklystats_teams():
         'stats.team-of-4': 1,
         '_id': 0
     }
-    results = collection.find({}, projection).sort('created_at', -1).limit(1).next()
+    current_results, previous_results = list(collection.find({}, projection).sort('created_at', -1).limit(2))
+    stats = get_teams_stats(current_results, previous_results)
 
-    sorted_results = {}
-
-    for gametype, data in results['stats'].items():
-
-        for team in data['Allies']:
-            team['last_game'] = set_last_game(results['created_at'], team['last_match_date'])
-
-        for team in data['Axis']:
-            team['last_game'] = set_last_game(results['created_at'], team['last_match_date'])
-
-        sorted_results[gametype.lower()] = {
-            'allies': sorted(data['Allies'], key=lambda k: k['rank']),
-            'axis': sorted(data['Axis'], key=lambda k: k['rank'])
-        }
-
-    return render_template('results_teams.html', stats=sorted_results)
+    return render_template('results_teams.html', stats=stats)

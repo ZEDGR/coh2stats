@@ -2,9 +2,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>Company of Heroes Greece 1v1</title>
-<link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500,700" rel="stylesheet">
-<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" media="all">
+<title>Company of Heroes Greece - Community Rankings For 1v1</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,500,700">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}" media="all">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 </head>
 <body>
 
@@ -51,7 +52,17 @@
                   <a href="https://www.companyofheroes.com/leaderboards#profile{{ player['players'][0]['steam_id'] }}" target="_blank" class="player-link">{{ player['players'][0]['name'] }}</a>
                 </h3>
               </td>
-              <td class="dynamic">-</td>
+              <td class="dynamic">
+                {% if player['players'][0]['dynamic'] == 'N' %}
+                  <i class="fa new">&#xf0a3;</i>
+                {% elif player['players'][0]['dynamic'] == 'U' %}
+                  <i class="fa up">&#xf062;</i>
+                {% elif player['players'][0]['dynamic'] == 'D' %}
+                  <i class="fa down">&#xf063;</i>
+                {% else %}
+                  <i class="fa stable">&#xf2d1;</i>
+                {% endif %}
+              </td>
               <td class="rank">{{ player['rank'] }}</td>
               {% if player['streak'] > 0 %}
               <td class="streak winning">+{{ player['streak'] }}</td>
@@ -112,7 +123,17 @@
                   <a href="https://www.companyofheroes.com/leaderboards#profile{{ player['players'][0]['steam_id'] }}" target="_blank" class="player-link">{{ player['players'][0]['name'] }}</a>
                 </h3>
               </td>
-              <td class="dynamic">-</td>
+              <td class="dynamic">
+                {% if player['players'][0]['dynamic'] == 'N' %}
+                  <i class="fa new">&#xf0a3;</i>
+                {% elif player['players'][0]['dynamic'] == 'U' %}
+                  <i class="fa up">&#xf062;</i>
+                {% elif player['players'][0]['dynamic'] == 'D' %}
+                  <i class="fa down">&#xf063;</i>
+                {% else %}
+                  <i class="fa stable">&#xf2d1;</i>
+                {% endif %}
+              </td>
               <td class="rank">{{ player['rank'] }}</td>
               {% if player['streak'] > 0 %}
               <td class="streak winning">+{{ player['streak'] }}</td>
@@ -173,7 +194,17 @@
                   <a href="https://www.companyofheroes.com/leaderboards#profile{{ player['players'][0]['steam_id'] }}" target="_blank" class="player-link" href="#">{{ player['players'][0]['name'] }}</a>
                 </h3>
               </td>
-              <td class="dynamic">-</td>
+              <td class="dynamic">
+                {% if player['players'][0]['dynamic'] == 'N' %}
+                  <i class="fa new">&#xf0a3;</i>
+                {% elif player['players'][0]['dynamic'] == 'U' %}
+                  <i class="fa up">&#xf062;</i>
+                {% elif player['players'][0]['dynamic'] == 'D' %}
+                  <i class="fa down">&#xf063;</i>
+                {% else %}
+                  <i class="fa stable">&#xf2d1;</i>
+                {% endif %}
+              </td>
               <td class="rank">{{ player['rank'] }}</td>
               {% if player['streak'] > 0 %}
               <td class="streak winning">+{{ player['streak'] }}</td>
@@ -234,7 +265,17 @@
                   <a href="https://www.companyofheroes.com/leaderboards#profile{{ player['players'][0]['steam_id'] }}" target="_blank" class="player-link">{{ player['players'][0]['name'] }}</a>
                 </h3>
               </td>
-              <td class="dynamic">-</td>
+              <td class="dynamic">
+                {% if player['players'][0]['dynamic'] == 'N' %}
+                  <i class="fa new">&#xf0a3;</i>
+                {% elif player['players'][0]['dynamic'] == 'U' %}
+                  <i class="fa up">&#xf062;</i>
+                {% elif player['players'][0]['dynamic'] == 'D' %}
+                  <i class="fa down">&#xf063;</i>
+                {% else %}
+                  <i class="fa stable">&#xf2d1;</i>
+                {% endif %}
+              </td>
               <td class="rank">{{ player['rank'] }}</td>
               {% if player['streak'] > 0 %}
               <td class="streak winning">+{{ player['streak'] }}</td>
@@ -295,7 +336,17 @@
                   <a href="https://www.companyofheroes.com/leaderboards#profile{{ player['players'][0]['steam_id'] }}" target="_blank" class="player-link">{{ player['players'][0]['name'] }}</a>
                 </h3>
               </td>
-              <td class="dynamic">-</td>
+              <td class="dynamic">
+                {% if player['players'][0]['dynamic'] == 'N' %}
+                  <i class="fa new">&#xf0a3;</i>
+                {% elif player['players'][0]['dynamic'] == 'U' %}
+                  <i class="fa up">&#xf062;</i>
+                {% elif player['players'][0]['dynamic'] == 'D' %}
+                  <i class="fa down">&#xf063;</i>
+                {% else %}
+                  <i class="fa stable">&#xf2d1;</i>
+                {% endif %}
+              </td>
               <td class="rank">{{ player['rank'] }}</td>
               {% if player['streak'] > 0 %}
               <td class="streak winning">+{{ player['streak'] }}</td>
