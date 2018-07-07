@@ -361,3 +361,20 @@ div.content-area {
     margin-left: 15%;
 }
 */
+
+.player-link {
+    color: #24bfff;
+    font-weight: bold;
+}
+
+.player-link:hover {
+    color: #8addff;
+}
+
+.deactivation {
+    color: #d9060f;
+}
+
+.near_deactivation {
+    color: #e07075;
+}

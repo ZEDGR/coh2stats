@@ -31,6 +31,7 @@
           <thead>
             <tr>
               <th class="mode">Mode</th>
+              <th>#</th>
               <th class="names"></th>
               <th class="dynamic"></th>
               <th class="rank">Rank</th>
@@ -52,9 +53,10 @@
             </tr>
             {% for team in stats['team-of-2']['allies'] %}
             <tr class="team-of-2">
+              <td>{{ loop.index }}.</td>
               <td class="names">
                 {% for player in team['players'] %}
-                  <a href="{{ player['profile_url'] }}" class="standing-link">{{ player['name'] }}</a><br>
+                  <a href="https://www.companyofheroes.com/leaderboards#profile{{ player['steam_id'] }}" target="_blank" class="player-link">{{ player['name'] }}</a><br>
                 {% endfor %}
               </td>
               <td class="dynamic">-</td>
@@ -68,7 +70,20 @@
               <td class="losses">{{ team['losses'] }}</td>
               <td class="ratio">{{ team['ratio'] }}</td>
               <td class="total">{{ team['total'] }}</td>
-              <td class="last">{{ team['last_game'] }}</td>
+              {% set last_game_partition = team['last_game'].partition('days') %}
+              {% set days = last_game_partition[0] %}
+              {% set days_exist = last_game_partition[1] %}
+              {% if not days_exist %}
+                <td class="last">{{ team['last_game'] }}</td>
+              {% else %}
+                  {% if days | int >= 25 %}
+                    <td class="last deactivation">{{ team['last_game'] }}</td>
+                  {% elif days | int >= 20 %}
+                    <td class="last near_deactivation">{{ team['last_game'] }}</td>
+                  {% else %}
+                    <td class="last">{{ team['last_game'] }}</td>
+                  {% endif %}
+              {% endif %}
             </tr>
             {% endfor %}
             <tr class="team-of-3">
@@ -80,9 +95,10 @@
             </tr>
             {% for team in stats['team-of-3']['allies'] %}
             <tr class="team-of-3">
+              <td>{{ loop.index }}.</td>
               <td class="names">
                 {% for player in team['players'] %}
-                  <a href="{{ player['profile_url'] }}" class="standing-link">{{ player['name'] }}</a><br>
+                  <a href="https://www.companyofheroes.com/leaderboards#profile{{ player['steam_id'] }}" target="_blank" class="player-link">{{ player['name'] }}</a><br>
                 {% endfor %}
               </td>
               <td class="dynamic">-</td>
@@ -96,7 +112,20 @@
               <td class="losses">{{ team['losses'] }}</td>
               <td class="ratio">{{ team['ratio'] }}</td>
               <td class="total">{{ team['total'] }}</td>
-              <td class="last">{{ team['last_game'] }}</td>
+              {% set last_game_partition = team['last_game'].partition('days') %}
+              {% set days = last_game_partition[0] %}
+              {% set days_exist = last_game_partition[1] %}
+              {% if not days_exist %}
+                <td class="last">{{ team['last_game'] }}</td>
+              {% else %}
+                  {% if days | int >= 25 %}
+                    <td class="last deactivation">{{ team['last_game'] }}</td>
+                  {% elif days | int >= 20 %}
+                    <td class="last near_deactivation">{{ team['last_game'] }}</td>
+                  {% else %}
+                    <td class="last">{{ team['last_game'] }}</td>
+                  {% endif %}
+              {% endif %}
             </tr>
             {% endfor %}
             <tr class="team-of-4">
@@ -108,9 +137,10 @@
             </tr>
             {% for team in stats['team-of-4']['allies'] %}
             <tr class="team-of-4">
+              <td>{{ loop.index }}.</td>
               <td class="names">
                 {% for player in team['players'] %}
-                  <a href="{{ player['profile_url'] }}" class="standing-link">{{ player['name'] }}</a><br>
+                  <a href="https://www.companyofheroes.com/leaderboards#profile{{ player['steam_id'] }}" target="_blank" class="player-link">{{ player['name'] }}</a><br>
                 {% endfor %}
               </td>
               <td class="dynamic">-</td>
@@ -124,7 +154,20 @@
               <td class="losses">{{ team['losses'] }}</td>
               <td class="ratio">{{ team['ratio'] }}</td>
               <td class="total">{{ team['total'] }}</td>
-              <td class="last">{{ team['last_game'] }}</td>
+              {% set last_game_partition = team['last_game'].partition('days') %}
+              {% set days = last_game_partition[0] %}
+              {% set days_exist = last_game_partition[1] %}
+              {% if not days_exist %}
+                <td class="last">{{ team['last_game'] }}</td>
+              {% else %}
+                  {% if days | int >= 25 %}
+                    <td class="last deactivation">{{ team['last_game'] }}</td>
+                  {% elif days | int >= 20 %}
+                    <td class="last near_deactivation">{{ team['last_game'] }}</td>
+                  {% else %}
+                    <td class="last">{{ team['last_game'] }}</td>
+                  {% endif %}
+              {% endif %}
             </tr>
             {% endfor %}
           </tbody>
@@ -141,7 +184,8 @@
           <thead>
             <tr>
               <th class="mode">Mode</th>
-              <th></th>
+              <th>#</th>
+              <th class="names"></th>
               <th class="dynamic"></th>
               <th class="rank">Rank</th>
               <th class="streak">Streak</th>
@@ -162,9 +206,10 @@
             </tr>
             {% for team in stats['team-of-2']['axis'] %}
             <tr class="team-of-2">
+              <td>{{ loop.index }}.</td>
               <td class="names">
                 {% for player in team['players'] %}
-                  <a href="{{ player['profile_url'] }}" class="standing-link">{{ player['name'] }}</a><br>
+                  <a href="https://www.companyofheroes.com/leaderboards#profile{{ player['steam_id'] }}" target="_blank" class="player-link">{{ player['name'] }}</a><br>
                 {% endfor %}
               </td>
               <td class="dynamic">-</td>
@@ -178,7 +223,20 @@
               <td class="losses">{{ team['losses'] }}</td>
               <td class="ratio">{{ team['ratio'] }}</td>
               <td class="total">{{ team['total'] }}</td>
-              <td class="last">{{ team['last_game'] }}</td>
+              {% set last_game_partition = team['last_game'].partition('days') %}
+              {% set days = last_game_partition[0] %}
+              {% set days_exist = last_game_partition[1] %}
+              {% if not days_exist %}
+                <td class="last">{{ team['last_game'] }}</td>
+              {% else %}
+                  {% if days | int >= 25 %}
+                    <td class="last deactivation">{{ team['last_game'] }}</td>
+                  {% elif days | int >= 20 %}
+                    <td class="last near_deactivation">{{ team['last_game'] }}</td>
+                  {% else %}
+                    <td class="last">{{ team['last_game'] }}</td>
+                  {% endif %}
+              {% endif %}
             </tr>
             {% endfor %}
             <tr class="team-of-3">
@@ -190,9 +248,10 @@
             </tr>
             {% for team in stats['team-of-3']['axis'] %}
             <tr class="team-of-3">
+              <td>{{ loop.index }}.</td>
               <td class="names">
                 {% for player in team['players'] %}
-                  <a href="{{ player['profile_url'] }}" class="standing-link">{{ player['name'] }}</a><br>
+                  <a href="https://www.companyofheroes.com/leaderboards#profile{{ player['steam_id'] }}" target="_blank" class="player-link">{{ player['name'] }}</a><br>
                 {% endfor %}
               </td>
               <td class="dynamic">-</td>
@@ -206,7 +265,20 @@
               <td class="losses">{{ team['losses'] }}</td>
               <td class="ratio">{{ team['ratio'] }}</td>
               <td class="total">{{ team['total'] }}</td>
-              <td class="last">{{ team['last_game'] }}</td>
+              {% set last_game_partition = team['last_game'].partition('days') %}
+              {% set days = last_game_partition[0] %}
+              {% set days_exist = last_game_partition[1] %}
+              {% if not days_exist %}
+                <td class="last">{{ team['last_game'] }}</td>
+              {% else %}
+                  {% if days | int >= 25 %}
+                    <td class="last deactivation">{{ team['last_game'] }}</td>
+                  {% elif days | int >= 20 %}
+                    <td class="last near_deactivation">{{ team['last_game'] }}</td>
+                  {% else %}
+                    <td class="last">{{ team['last_game'] }}</td>
+                  {% endif %}
+              {% endif %}
             </tr>
             {% endfor %}
             <tr class="team-of-4">
@@ -219,9 +291,10 @@
             </tr>
             {% for team in stats['team-of-4']['axis'] %}
             <tr class="team-of-4">
+              <td>{{ loop.index }}.</td>
               <td class="names">
                 {% for player in team['players'] %}
-                  <a href="{{ player['profile_url'] }}" class="standing-link">{{ player['name'] }}</a><br>
+                  <a href="https://www.companyofheroes.com/leaderboards#profile{{ player['steam_id'] }}" target="_blank" class="player-link">{{ player['name'] }}</a><br>
                 {% endfor %}
               </td>
               <td class="dynamic">-</td>
@@ -235,7 +308,20 @@
               <td class="losses">{{ team['losses'] }}</td>
               <td class="ratio">{{ team['ratio'] }}</td>
               <td class="total">{{ team['total'] }}</td>
-              <td class="last">{{ team['last_game'] }}</td>
+              {% set last_game_partition = team['last_game'].partition('days') %}
+              {% set days = last_game_partition[0] %}
+              {% set days_exist = last_game_partition[1] %}
+              {% if not days_exist %}
+                <td class="last">{{ team['last_game'] }}</td>
+              {% else %}
+                  {% if days | int >= 25 %}
+                    <td class="last deactivation">{{ team['last_game'] }}</td>
+                  {% elif days | int >= 20 %}
+                    <td class="last near_deactivation">{{ team['last_game'] }}</td>
+                  {% else %}
+                    <td class="last">{{ team['last_game'] }}</td>
+                  {% endif %}
+              {% endif %}
             </tr>
             {% endfor %}
           </tbody>

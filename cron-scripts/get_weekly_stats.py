@@ -79,7 +79,6 @@ async def get_results(matchtype, matchtype_id, aio_session, positions, sortBy=1,
 
             params['start'] += step
 
-            # for stats in response['leaderboardStats']:
             for group in response['statGroups']:
                 found = all(member['country'] in COUNTRIES for member in group['members'])
                 if found:
@@ -90,34 +89,20 @@ async def get_results(matchtype, matchtype_id, aio_session, positions, sortBy=1,
                     results['total'] = results['wins'] + results['losses']
                     results['ratio'] = "{:.0%}".format(results['wins'] / results['total'])
                     results['players'] = [
-                        {'profile_id': member['profile_id'], 'name': member['alias'], 'country': member['country']}
+                        {
+                            'profile_id': member['profile_id'],
+                            'steam_id': member['name'],
+                            'name': member['alias'],
+                            'country': member['country']
+                        }
                         for member in group['members']
                     ]
-                    results['last_game'] = get_last_game_datetime(results['lastMatchDate'])
+                    results['last_match_date'] = results['lastMatchDate']
 
                     category_results.append(results)
                     current_position += 1
                     if current_position > positions:
                         break
-
-
-def get_last_game_datetime(date):
-    last_match_date = datetime.datetime.fromtimestamp(date)
-    now = datetime.datetime.now()
-    delta = now - last_match_date
-
-    if delta.days > 1:
-        return "{} days ago".format(delta.days)
-    elif delta.days == 1:
-        return "a day ago"
-    elif delta.seconds >= 0 and delta.seconds < 60:
-        return "less than a minute ago"
-    elif delta.seconds < 3600:
-        return "{} minutes ago".format(delta.seconds // 60)
-    elif delta.seconds >= 3600 and delta.seconds < 7200:
-        return "an hour ago"
-    else:
-        return "{} hours ago".format(delta.seconds // 3600)
 
 
 def normalize(data):
@@ -157,8 +142,8 @@ async def main():
 
     # Connect to a local MongoDB and store the results
     mongo_client = pymongo.MongoClient()
-    grstats = mongo_client.coh2stats.newstats
-    results = {'test': True, 'created_at': datetime.datetime.utcnow(), 'stats': results}
+    grstats = mongo_client.coh2stats.weeklystats
+    results = {'created_at': datetime.datetime.utcnow(), 'stats': results}
     grstats.insert(results)
 
 
