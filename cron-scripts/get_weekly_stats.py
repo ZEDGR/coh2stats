@@ -87,18 +87,24 @@ async def get_results(matchtype, matchtype_id, aio_session, positions, sortBy=1,
                     stats = next(stats for stats in response['leaderboardStats'] if stats['statGroup_id'] == group['id'])
                     results = dict(stats)
                     results['total'] = results['wins'] + results['losses']
-                    results['ratio'] = "{:.0%}".format(results['wins'] / results['total'])
-                    results['players'] = [
-                        {
-                            'profile_id': member['profile_id'],
-                            'steam_id': member['name'],
-                            'name': member['alias'],
-                            'country': member['country']
+                    results['ratio'] = f"{results['wins'] / results['total']:.0%}"
+                    if matchtype.startswith('1v1'):
+                        results['player'] = {
+                            'profile_id': group['members'][0]['profile_id'],
+                            'steam_id': group['members'][0]['name'],
+                            'name': group['members'][0]['alias'],
+                            'country': group['members'][0]['country']
                         }
-                        for member in group['members']
-                    ]
-                    results['last_match_date'] = results['lastMatchDate']
-
+                    else:
+                        results['players'] = [
+                            {
+                                'profile_id': member['profile_id'],
+                                'steam_id': member['name'],
+                                'name': member['alias'],
+                                'country': member['country']
+                            }
+                            for member in group['members']
+                        ]
                     category_results.append(results)
                     current_position += 1
                     if current_position > positions:
@@ -136,9 +142,6 @@ async def main():
         completed_tasks = await asyncio.gather(*results)
 
         results = normalize([task for task in completed_tasks])
-
-    with open("data.json", 'w') as json_file:
-        json.dump(results, json_file, indent=4)
 
     # Connect to a local MongoDB and store the results
     mongo_client = pymongo.MongoClient()

@@ -7,27 +7,27 @@ def get_players_stats(current_results, previous_results):
         faction = faction.lower()
         current_sorted_results[faction] = sorted(players, key=lambda k: k['rank'])
         for player in current_sorted_results[faction]:
-            player['last_game'] = get_time_since_last_game(current_results['created'], player['last_match_date'])
+            player['last_game'] = get_time_since_last_game(current_results['created'], player['lastMatchDate'])
 
     # take and sort previous players profile ids
     previous_sorted_players_ids = {}
     for faction, players in previous_results['stats']['1v1'].items():
-        players_profiles_ids = [player['players'][0]['profile_id'] for player in sorted(players, key=lambda k: k['rank'])]
+        players_profiles_ids = [player['player']['profile_id'] for player in sorted(players, key=lambda k: k['rank'])]
         previous_sorted_players_ids[faction.lower()] = players_profiles_ids
 
     # find each player's dynamic
     for faction, current_players in current_sorted_results.items():
         for player_current_index, player in enumerate(current_players):
-            if player['players'][0]['profile_id'] not in previous_sorted_players_ids[faction]:
-                player['players'][0]['dynamic'] = 'N'
+            if player['player']['profile_id'] not in previous_sorted_players_ids[faction]:
+                player['player']['dynamic'] = 'N'
             else:
-                player_previous_index = previous_sorted_players_ids[faction].index(player['players'][0]['profile_id'])
+                player_previous_index = previous_sorted_players_ids[faction].index(player['player']['profile_id'])
                 if player_previous_index > player_current_index:
-                    player['players'][0]['dynamic'] = 'U'
+                    player['player']['dynamic'] = 'U'
                 elif player_previous_index < player_current_index:
-                    player['players'][0]['dynamic'] = 'D'
+                    player['player']['dynamic'] = 'D'
                 else:
-                    player['players'][0]['dynamic'] = 'S'
+                    player['player']['dynamic'] = 'S'
 
     return current_sorted_results
 
@@ -36,10 +36,10 @@ def get_teams_stats(current_results, previous_results):
     current_sorted_results = {}
     for gametype, data in current_results['stats'].items():
         for team in data['Allies']:
-            team['last_game'] = get_time_since_last_game(current_results['created'], team['last_match_date'])
+            team['last_game'] = get_time_since_last_game(current_results['created'], team['lastMatchDate'])
 
         for team in data['Axis']:
-            team['last_game'] = get_time_since_last_game(current_results['created'], team['last_match_date'])
+            team['last_game'] = get_time_since_last_game(current_results['created'], team['lastMatchDate'])
 
         current_sorted_results[gametype.lower()] = {
             'allies': sorted(data['Allies'], key=lambda k: k['rank']),
