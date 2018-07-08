@@ -87,9 +87,9 @@
               {% if not days_exist %}
                 <td class="last">{{ team['last_game'] }}</td>
               {% else %}
-                  {% if days | int >= 25 %}
+                  {% if days | int > 20 %}
                     <td class="last deactivation">{{ team['last_game'] }}</td>
-                  {% elif days | int >= 20 %}
+                  {% elif days | int >= 15 %}
                     <td class="last near_deactivation">{{ team['last_game'] }}</td>
                   {% else %}
                     <td class="last">{{ team['last_game'] }}</td>
@@ -139,9 +139,9 @@
               {% if not days_exist %}
                 <td class="last">{{ team['last_game'] }}</td>
               {% else %}
-                  {% if days | int >= 25 %}
+                  {% if days | int > 20 %}
                     <td class="last deactivation">{{ team['last_game'] }}</td>
-                  {% elif days | int >= 20 %}
+                  {% elif days | int >= 15 %}
                     <td class="last near_deactivation">{{ team['last_game'] }}</td>
                   {% else %}
                     <td class="last">{{ team['last_game'] }}</td>
@@ -191,9 +191,9 @@
               {% if not days_exist %}
                 <td class="last">{{ team['last_game'] }}</td>
               {% else %}
-                  {% if days | int >= 25 %}
+                  {% if days | int > 20 %}
                     <td class="last deactivation">{{ team['last_game'] }}</td>
-                  {% elif days | int >= 20 %}
+                  {% elif days | int >= 15 %}
                     <td class="last near_deactivation">{{ team['last_game'] }}</td>
                   {% else %}
                     <td class="last">{{ team['last_game'] }}</td>
@@ -270,9 +270,9 @@
               {% if not days_exist %}
                 <td class="last">{{ team['last_game'] }}</td>
               {% else %}
-                  {% if days | int >= 25 %}
+                  {% if days | int > 20 %}
                     <td class="last deactivation">{{ team['last_game'] }}</td>
-                  {% elif days | int >= 20 %}
+                  {% elif days | int >= 15 %}
                     <td class="last near_deactivation">{{ team['last_game'] }}</td>
                   {% else %}
                     <td class="last">{{ team['last_game'] }}</td>
@@ -322,9 +322,9 @@
               {% if not days_exist %}
                 <td class="last">{{ team['last_game'] }}</td>
               {% else %}
-                  {% if days | int >= 25 %}
+                  {% if days | int > 20 %}
                     <td class="last deactivation">{{ team['last_game'] }}</td>
-                  {% elif days | int >= 20 %}
+                  {% elif days | int >= 15 %}
                     <td class="last near_deactivation">{{ team['last_game'] }}</td>
                   {% else %}
                     <td class="last">{{ team['last_game'] }}</td>
@@ -375,9 +375,9 @@
               {% if not days_exist %}
                 <td class="last">{{ team['last_game'] }}</td>
               {% else %}
-                  {% if days | int >= 25 %}
+                  {% if days | int > 20 %}
                     <td class="last deactivation">{{ team['last_game'] }}</td>
-                  {% elif days | int >= 20 %}
+                  {% elif days | int >= 15 %}
                     <td class="last near_deactivation">{{ team['last_game'] }}</td>
                   {% else %}
                     <td class="last">{{ team['last_game'] }}</td>

@@ -357,11 +357,6 @@ div.content-area {
     margin-left: 300px;
 }
 
-/*.standings-breakdown {
-    margin-left: 15%;
-}
-*/
-
 .player-link {
     color: #24bfff;
     font-weight: bold;
@@ -384,11 +379,11 @@ i.new {
 }
 
 i.up {
-    color: #07bf07;
+    color: #aaff00;
 }
 
 i.down {
-    color: #fc0505;
+    color: #d9060f;
 }
 
 i.stable {
