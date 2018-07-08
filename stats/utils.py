@@ -7,7 +7,7 @@ def get_players_stats(current_results, previous_results):
         faction = faction.lower()
         current_sorted_results[faction] = sorted(players, key=lambda k: k['rank'])
         for player in current_sorted_results[faction]:
-            player['last_game'] = get_time_since_last_game(current_results['created_at'], player['last_match_date'])
+            player['last_game'] = get_time_since_last_game(current_results['created'], player['last_match_date'])
 
     # take and sort previous players profile ids
     previous_sorted_players_ids = {}
@@ -36,10 +36,10 @@ def get_teams_stats(current_results, previous_results):
     current_sorted_results = {}
     for gametype, data in current_results['stats'].items():
         for team in data['Allies']:
-            team['last_game'] = get_time_since_last_game(current_results['created_at'], team['last_match_date'])
+            team['last_game'] = get_time_since_last_game(current_results['created'], team['last_match_date'])
 
         for team in data['Axis']:
-            team['last_game'] = get_time_since_last_game(current_results['created_at'], team['last_match_date'])
+            team['last_game'] = get_time_since_last_game(current_results['created'], team['last_match_date'])
 
         current_sorted_results[gametype.lower()] = {
             'allies': sorted(data['Allies'], key=lambda k: k['rank']),

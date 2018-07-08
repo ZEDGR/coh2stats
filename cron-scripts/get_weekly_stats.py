@@ -143,7 +143,7 @@ async def main():
     # Connect to a local MongoDB and store the results
     mongo_client = pymongo.MongoClient()
     grstats = mongo_client.coh2stats.weeklystats
-    results = {'created_at': datetime.datetime.utcnow(), 'stats': results}
+    results = {'created': datetime.datetime.utcnow(), 'stats': results}
     grstats.insert(results)
 
 
