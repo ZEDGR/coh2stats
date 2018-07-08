@@ -13,7 +13,7 @@ db_client = pymongo.MongoClient(
 stats = Blueprint('stats', __name__)
 
 
-@stats.route('/weeklystats/1v1/static')
+@stats.route('/weeklystats/1v1/latest')
 def weeklystats_1v1():
     collection = db_client.coh2stats.weeklystats
 
@@ -23,7 +23,7 @@ def weeklystats_1v1():
     return render_template('results_1v1.html', stats=stats)
 
 
-@stats.route('/weeklystats/teams/static')
+@stats.route('/weeklystats/teams/latest')
 def weeklystats_teams():
     collection = db_client.coh2stats.weeklystats
 
