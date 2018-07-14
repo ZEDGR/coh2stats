@@ -9,6 +9,8 @@ pymongo = "*"
 flask = "*"
 gunicorn = "*"
 meinheld = "*"
+facebook-sdk = "*"
+imgkit = "*"
 
 [dev-packages]
 
