@@ -5,6 +5,8 @@ import urllib.request
 import urllib.parse
 import datetime
 import pymongo
+import os
+
 
 CONFIG = json.load(open("config.json"))
 
@@ -17,6 +19,9 @@ COUNTRIES = ("gr", "cy")
 # number of top players/teams
 TOP_PLAYERS = 5
 TOP_TEAMS = 3
+
+LEADERBOARDS = os.environ.get('LEADERBOARDS')
+SPECIFIC_LEADERBOARD = os.environ.get('SPECIFIC_LEADERBOARD')
 
 
 def request(url, params, headers):
@@ -33,7 +38,7 @@ def get_leaderboards():
 
     params = {'title': "coh2"}
 
-    response = request(CONFIG['leaderboards'], params, CONFIG['headers'])
+    response = request(LEADERBOARDS, params, CONFIG['headers'])
 
     id1v1 = None
     # get 1v1 matchtype id
@@ -69,7 +74,7 @@ async def get_results(matchtype, matchtype_id, aio_session, positions, sortBy=1,
     category_results = []
 
     while True:
-        async with aio_session.get(CONFIG['specific_leaderboard'], params=params, headers=CONFIG['headers']) as response:
+        async with aio_session.get(SPECIFIC_LEADERBOARD, params=params, headers=CONFIG['headers']) as response:
             response = await response.json()
 
             # if the leaderboardStats array is empty
