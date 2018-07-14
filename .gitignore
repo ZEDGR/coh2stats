@@ -1,6 +1,12 @@
 # Config
 config.json
 
+# images inside cron-scripts
+cron-scripts/*.png
+
+# vscode
+.vscode
+
 # Sublime Project Files
 *.sublime-*
 
