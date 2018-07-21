@@ -1,5 +1,6 @@
 import datetime
 
+
 def get_players_stats(current_results, previous_results):
     # sort current results and add last_game
     current_sorted_results = {}
@@ -31,6 +32,7 @@ def get_players_stats(current_results, previous_results):
 
     return current_sorted_results
 
+
 def get_teams_stats(current_results, previous_results):
     # sort current results and add last_game
     current_sorted_results = {}
@@ -47,7 +49,7 @@ def get_teams_stats(current_results, previous_results):
         }
 
     # take and sort previous teams players ids
-    previous_sorted_teams_players_ids= {}
+    previous_sorted_teams_players_ids = {}
     for gametype, data in previous_results['stats'].items():
         previous_sorted_teams_players_ids[gametype.lower()] = {
             'allies': [tuple(player['profile_id'] for player in team['players']) for team in sorted(data['Allies'], key=lambda k: k['rank'])],
@@ -56,8 +58,10 @@ def get_teams_stats(current_results, previous_results):
 
     # find each team's dynamic
     for gametype, data in current_sorted_results.items():
-        current_allies_teams_players_ids = [tuple(player['profile_id'] for player in team['players']) for team in data['allies']]
-        current_axis_teams_players_ids = [tuple(player['profile_id'] for player in team['players']) for team in data['axis']]
+        current_allies_teams_players_ids = [tuple(player['profile_id']
+                                                  for player in team['players']) for team in data['allies']]
+        current_axis_teams_players_ids = [tuple(player['profile_id']
+                                                for player in team['players']) for team in data['axis']]
 
         for current_team_index, team in enumerate(current_allies_teams_players_ids):
             if team not in previous_sorted_teams_players_ids[gametype]['allies']:
@@ -84,6 +88,7 @@ def get_teams_stats(current_results, previous_results):
                     current_sorted_results[gametype]['axis'][current_team_index]['dynamic'] = 'S'
 
     return current_sorted_results
+
 
 def get_time_since_last_game(date_taken, last_match_date):
     last_match_date = datetime.datetime.fromtimestamp(last_match_date)
