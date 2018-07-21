@@ -10,9 +10,6 @@ import os
 
 CONFIG = json.load(open("config.json"))
 
-# For GUI-less OS uncomment the line below
-# dryscrape.start_xvfb()
-
 # Countries selection
 COUNTRIES = ("gr", "cy")
 

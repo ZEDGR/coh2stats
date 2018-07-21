@@ -1,14 +1,14 @@
 from datetime import datetime
 from time import sleep
 import facebook
-import requests
 import json
 import imgkit
 import os
 
+FLASK_DEBUG = os.environ.get('FLASK_DEBUG')
 STATS_1v1_URL = os.environ.get('STATS_1v1_URL')
 STATS_TEAMS_URL = os.environ.get('STATS_TEAMS_URL')
-FB_GROUP_ID = os.environ.get('FB_TEST_GROUP_ID') if os.environ.get('FLASK_DEBUG') else os.environ.get('FB_GROUP_ID')
+FB_GROUP_ID = os.environ.get('FB_TEST_GROUP_ID') if FLASK_DEBUG else os.environ.get('FB_GROUP_ID')
 FB_TOKEN = os.environ.get('FB_TOKEN')
 
 imgkit_options = {
@@ -19,18 +19,19 @@ imgkit_options = {
     'encoding': 'UTF-8',
 }
 
-if not os.environ.get('FLASK_DEBUG'):
+if not FLASK_DEBUG:
     imgkit_options['xvfb'] = ''
 
+
 def get_fb_api(cfg):
-        graph = facebook.GraphAPI(cfg['access_token'])
-        resp = graph.get_object('me/accounts')
-        page_access_token = None
-        for page in resp['data']:
-                if page['id'] == cfg['page_id']:
-                        page_access_token = page['access_token']
-        graph = facebook.GraphAPI(page_access_token)
-        return graph
+    graph = facebook.GraphAPI(cfg['access_token'])
+    resp = graph.get_object('me/accounts')
+    page_access_token = None
+    for page in resp['data']:
+        if page['id'] == cfg['page_id']:
+            page_access_token = page['access_token']
+    graph = facebook.GraphAPI(page_access_token)
+    return graph
 
 
 def main():
@@ -49,6 +50,7 @@ def main():
     attached_media = json.dumps([{'media_fbid': str(id_1v1)}, {'media_fbid': str(id_teams)}])
     message = f'Στατιστικά Ελληνικής Κοινότητας {datetime.now():%d/%m/%Y}'
     fb_api.put_object(parent_object="me", connection_name="feed", attached_media=attached_media, message=message)
+
 
 if __name__ == '__main__':
     main()
