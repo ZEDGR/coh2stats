@@ -42,3 +42,6 @@ class DAO:
             '_id': 0
         }
         return list(collection.find({}, projection).sort('created', -1).limit(2))
+
+    def get_players_to_track(self):
+        return list(self.db.trackplayers.find())
