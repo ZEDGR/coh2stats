@@ -1,3 +1,8 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
+from coh2stats import dao
 import asyncio
 import aiohttp
 import json
@@ -146,11 +151,8 @@ async def main():
 
         results = normalize([task for task in completed_tasks])
 
-    # Connect to a local MongoDB and store the results
-    mongo_client = pymongo.MongoClient()
-    grstats = mongo_client.coh2stats.weeklystats
     results = {'created': datetime.datetime.utcnow(), 'stats': results}
-    grstats.insert(results)
+    dao.insert_weeklystats(results)
 
 
 if __name__ == '__main__':

@@ -1,4 +1,7 @@
 from flask import Flask
+from coh2stats.dao import DAO
+
+dao = DAO()
 
 
 def create_app():
