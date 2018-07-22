@@ -86,7 +86,8 @@ async def get_results(matchtype, matchtype_id, aio_session, positions, sortBy=1,
                 if found:
                     print("found for matchtype:", matchtype)
 
-                    stats = next(stats for stats in response['leaderboardStats'] if stats['statGroup_id'] == group['id'])
+                    stats = next(stats for stats in response['leaderboardStats']
+                                 if stats['statGroup_id'] == group['id'])
                     results = dict(stats)
                     results['total'] = results['wins'] + results['losses']
                     results['ratio'] = f"{results['wins'] / results['total']:.0%}"
