@@ -1,8 +1,7 @@
-from flask import Flask
+from coh2stats import create_app
 
-app = Flask(__name__, static_folder='assets')
-from stats.routes import stats
-app.register_blueprint(stats)
+app = create_app()
+
 
 if __name__ == '__main__':
     app.run()
