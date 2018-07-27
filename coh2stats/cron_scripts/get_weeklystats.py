@@ -3,6 +3,7 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 from coh2stats import dao
+from coh2stats import config
 import asyncio
 import aiohttp
 import json
@@ -13,8 +14,6 @@ import pymongo
 import os
 
 
-CONFIG = json.load(open("config.json"))
-
 # Countries selection
 COUNTRIES = ("gr", "cy")
 
@@ -22,14 +21,11 @@ COUNTRIES = ("gr", "cy")
 TOP_PLAYERS = 5
 TOP_TEAMS = 3
 
-LEADERBOARDS = os.environ.get('LEADERBOARDS')
-SPECIFIC_LEADERBOARD = os.environ.get('SPECIFIC_LEADERBOARD')
 
-
-def request(url, params, headers):
+def request_leaderboards(params):
     params = urllib.parse.urlencode(params)
-    url = "{}?{}".format(url, params)
-    request = urllib.request.Request(url, headers=headers)
+    url = "{}?{}".format(config.LEADERBOARDS, params)
+    request = urllib.request.Request(url, headers=config.HTTP_HEADERS)
 
     response = urllib.request.urlopen(request)
     return json.loads(response.read().decode('utf-8'))
@@ -40,7 +36,7 @@ def get_leaderboards():
 
     params = {'title': "coh2"}
 
-    response = request(LEADERBOARDS, params, CONFIG['headers'])
+    response = request_leaderboards(params)
 
     id1v1 = None
     # get 1v1 matchtype id
@@ -76,7 +72,7 @@ async def get_results(matchtype, matchtype_id, aio_session, positions, sortBy=1,
     category_results = []
 
     while True:
-        async with aio_session.get(SPECIFIC_LEADERBOARD, params=params, headers=CONFIG['headers']) as response:
+        async with aio_session.get(config.SPECIFIC_LEADERBOARD, params=params, headers=config.HTTP_HEADERS) as response:
             response = await response.json()
 
             # if the leaderboardStats array is empty

@@ -1,15 +1,14 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
+from coh2stats import config
 from datetime import datetime
 from time import sleep
-import facebook
 import json
-import imgkit
 import os
-
-FLASK_DEBUG = os.environ.get('FLASK_DEBUG')
-STATS_1v1_URL = os.environ.get('STATS_1v1_URL')
-STATS_TEAMS_URL = os.environ.get('STATS_TEAMS_URL')
-FB_GROUP_ID = os.environ.get('FB_TEST_GROUP_ID') if FLASK_DEBUG else os.environ.get('FB_GROUP_ID')
-FB_TOKEN = os.environ.get('FB_TOKEN')
+import facebook
+import imgkit
 
 imgkit_options = {
     'quiet': '',
@@ -19,7 +18,7 @@ imgkit_options = {
     'encoding': 'UTF-8',
 }
 
-if not FLASK_DEBUG:
+if not config.FLASK_DEBUG:
     imgkit_options['xvfb'] = ''
 
 
@@ -35,13 +34,13 @@ def get_fb_api(cfg):
 
 
 def main():
-    img_1v1 = imgkit.from_url(STATS_1v1_URL, False, options=imgkit_options)
+    img_1v1 = imgkit.from_url(config.STATS_1v1_URL, False, options=imgkit_options)
     sleep(3)
-    img_teams = imgkit.from_url(STATS_TEAMS_URL, False, options=imgkit_options)
+    img_teams = imgkit.from_url(config.STATS_TEAMS_URL, False, options=imgkit_options)
 
     fb_cfg = {
-        'page_id': FB_GROUP_ID,
-        'access_token': FB_TOKEN
+        'page_id': config.FB_GROUP_ID,
+        'access_token': config.FB_TOKEN
     }
 
     fb_api = get_fb_api(fb_cfg)

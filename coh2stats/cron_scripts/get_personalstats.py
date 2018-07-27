@@ -3,16 +3,14 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 from coh2stats import dao
+from coh2stats import config
 import asyncio
 import aiohttp
-
-PROFILES_STATS = os.environ.get('PROFILES_STATS')
-RECENT_MATCH_HISTORY = os.environ.get('RECENT_MATCH_HISTORY')
 
 
 async def get_players_profiles(players_profiles_ids, session):
     profile_ids = ','.join([str(profile_id) for profile_id in players_profiles_ids])
-    url = PROFILES_STATS.format(profile_ids)
+    url = config.PROFILES_STATS.format(profile_ids)
 
     async with session.get(url) as response:
         response = await response.json()
@@ -32,7 +30,7 @@ async def get_players_profiles(players_profiles_ids, session):
 
 
 async def get_match_stats(steam_id, session):
-    url = RECENT_MATCH_HISTORY.format(steam_id)
+    url = config.RECENT_MATCH_HISTORY.format(steam_id)
 
     async with session.get(url) as response:
         response = await response.json()

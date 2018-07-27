@@ -1,20 +1,20 @@
 import pymongo
 import os
+from coh2stats.config import Config
+
+config = Config()
 
 
 class DAO:
 
     def __init__(self):
-        mongo_host = os.environ.get('MONGO_HOST')
-        mongo_port = os.environ.get('MONGO_PORT')
+        mongo_host = config.MONGO_HOST
+        mongo_port = config.MONGO_PORT
 
         if mongo_port:
             mongo_port = int(mongo_port)
 
-        self.mc = pymongo.MongoClient(
-            host=mongo_host,
-            port=mongo_port
-        )
+        self.mc = pymongo.MongoClient(host=mongo_host, port=mongo_port)
         self.db = self.mc.coh2stats
 
     def insert_playerstats(self, data):
@@ -25,7 +25,7 @@ class DAO:
             pass
 
     def insert_weeklystats(self, data):
-        return self.db.weeklystats.insert_many(data)
+        return self.db.weeklystats.insert_one(data)
 
     def get_weeklystats_1v1(self):
         collection = self.db.weeklystats

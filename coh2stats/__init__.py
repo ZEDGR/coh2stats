@@ -1,7 +1,9 @@
 from flask import Flask
 from coh2stats.dao import DAO
+from coh2stats.config import Config
 
 dao = DAO()
+config = Config()
 
 
 def create_app():
