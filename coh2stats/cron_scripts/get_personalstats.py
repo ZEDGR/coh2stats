@@ -9,8 +9,7 @@ import aiohttp
 
 
 async def get_players_profiles(players_profiles_ids, session):
-    profile_ids = ','.join([str(profile_id) for profile_id in players_profiles_ids])
-    url = config.PROFILES_STATS.format(profile_ids)
+    url = config.PROFILES_STATS.format(players_profiles_ids)
 
     async with session.get(url) as response:
         response = await response.json()
@@ -29,8 +28,8 @@ async def get_players_profiles(players_profiles_ids, session):
     return players_profiles
 
 
-async def get_match_stats(steam_id, session):
-    url = config.RECENT_MATCH_HISTORY.format(steam_id)
+async def get_match_stats(steam_ids, session):
+    url = config.RECENT_MATCH_HISTORY.format(steam_ids)
 
     async with session.get(url) as response:
         response = await response.json()
@@ -60,11 +59,17 @@ async def get_data():
 
     results = []
     async with aiohttp.ClientSession() as session:
-        for steam_id in steam_ids:
-            stats = await get_match_stats(steam_id, session)
+        for chunk in chunks(steam_ids, 5):
+            stats = await get_match_stats(chunk, session)
             results.extend(stats)
 
     dao.insert_playerstats(results)
+
+
+def chunks(l, n):
+    """Yield successive n-sized chunks from l."""
+    for i in range(0, len(l), n):
+        yield l[i:i + n]
 
 
 def main():
