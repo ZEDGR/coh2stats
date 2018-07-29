@@ -1,6 +1,8 @@
 from flask import Flask
 from coh2stats.dao import DAO
 from coh2stats.config import Config
+from coh2stats.weeklystats import tasks
+
 
 dao = DAO()
 config = Config()
@@ -8,7 +10,7 @@ config = Config()
 
 def create_app():
     app = Flask(__name__, static_folder='assets')
-    from coh2stats.stats.routes import stats
+    from coh2stats.weeklystats.routes import stats
     app.register_blueprint(stats)
 
     return app
