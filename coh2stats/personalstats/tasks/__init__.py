@@ -1,0 +1,1 @@
+from coh2stats.personalstats.tasks.get_personalstats import get_personalstats_main

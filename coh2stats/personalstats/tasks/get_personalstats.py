@@ -1,11 +1,11 @@
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-
 from coh2stats import dao
-from coh2stats import config
+from huey import crontab
+from coh2stats.config import schedule
+from coh2stats.config import Config
 import asyncio
 import aiohttp
+
+config = Config()
 
 
 async def get_players_profiles(players_profiles_ids, session):
@@ -72,13 +72,10 @@ def chunks(l, n):
         yield l[i:i + n]
 
 
-def main():
+@schedule.periodic_task(crontab(hour='20', minute='0'))
+def get_personalstats_main():
     eloop = asyncio.get_event_loop()
     try:
         eloop.run_until_complete(get_data())
     finally:
         eloop.close()
-
-
-if __name__ == '__main__':
-    main()

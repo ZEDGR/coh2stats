@@ -1,14 +1,14 @@
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-
-from coh2stats import config
+from huey import crontab
+from coh2stats.config import schedule
+from coh2stats.config import Config
 from datetime import datetime
 from time import sleep
 import json
 import os
 import facebook
 import imgkit
+
+config = Config()
 
 imgkit_options = {
     'quiet': '',
@@ -33,7 +33,8 @@ def get_fb_api(cfg):
     return graph
 
 
-def main():
+@schedule.periodic_task(crontab(hour='15', minute='0', day_of_week='6'))
+def publish_weeklystats_main():
     img_1v1 = imgkit.from_url(config.STATS_1v1_URL, False, options=imgkit_options)
     sleep(3)
     img_teams = imgkit.from_url(config.STATS_TEAMS_URL, False, options=imgkit_options)
@@ -49,7 +50,3 @@ def main():
     attached_media = json.dumps([{'media_fbid': str(id_1v1)}, {'media_fbid': str(id_teams)}])
     message = f'Στατιστικά Ελληνικής Κοινότητας {datetime.now():%d/%m/%Y}'
     fb_api.put_object(parent_object="me", connection_name="feed", attached_media=attached_media, message=message)
-
-
-if __name__ == '__main__':
-    main()

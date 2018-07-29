@@ -1,9 +1,7 @@
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-
 from coh2stats import dao
-from coh2stats import config
+from huey import crontab
+from coh2stats.config import schedule
+from coh2stats.config import Config
 import asyncio
 import aiohttp
 import json
@@ -13,6 +11,7 @@ import datetime
 import pymongo
 import os
 
+config = Config()
 
 # Countries selection
 COUNTRIES = ("gr", "cy")
@@ -133,7 +132,7 @@ def normalize(data):
     return normalized
 
 
-async def main():
+async def gather():
     matchtypes = get_leaderboards()
 
     async with aiohttp.ClientSession() as aio_session:
@@ -151,9 +150,10 @@ async def main():
     dao.insert_weeklystats(results)
 
 
-if __name__ == '__main__':
+@schedule.periodic_task(crontab(hour='14', minute='30', day_of_week='6'))
+def get_weeklystats_main():
     eloop = asyncio.get_event_loop()
     try:
-        eloop.run_until_complete(main())
+        eloop.run_until_complete(gather())
     finally:
         eloop.close()

@@ -1,11 +1,12 @@
 from flask import Flask
 from coh2stats.dao import DAO
 from coh2stats.config import Config
-from coh2stats.weeklystats import tasks
+from coh2stats.config import schedule
+from coh2stats.weeklystats.tasks import *
+from coh2stats.personalstats.tasks import *
 
 
 dao = DAO()
-config = Config()
 
 
 def create_app():

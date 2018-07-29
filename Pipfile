@@ -11,6 +11,7 @@ gunicorn = "*"
 meinheld = "*"
 facebook-sdk = "*"
 imgkit = "*"
+huey = {version = "*", extras = ["backends"]}
 
 [dev-packages]
 pylint = "*"

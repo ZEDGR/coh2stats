@@ -1,5 +1,8 @@
+from huey.contrib.sqlitedb import SqliteHuey
 import os
 import json
+
+schedule = SqliteHuey('coh2stats', filename='test.db')
 
 
 class Config:
