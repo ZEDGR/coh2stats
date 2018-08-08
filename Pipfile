@@ -5,13 +5,23 @@ name = "pypi"
 
 [packages]
 aiohttp = "==1.2.0"
-pymongo = "*"
-flask = "*"
+pymongo = "==3.7.0"
 gunicorn = "*"
 meinheld = "*"
 facebook-sdk = "*"
-imgkit = "*"
 huey = {version = "*", extras = ["backends"]}
+chardet = "==3.0.4"
+click = "==6.7"
+idna = "==2.7"
+itsdangerous = "==0.24"
+multidict = "==4.3.1"
+yarl = "==1.2.6"
+Flask = "==1.0.2"
+async_timeout = "==3.0.0"
+"Jinja2" = "==2.10"
+MarkupSafe = "==1.0"
+Werkzeug = "==0.14.1"
+pyppeteer = "*"
 
 [dev-packages]
 pylint = "*"
@@ -19,3 +29,7 @@ pylint = "*"
 
 [requires]
 python_version = "3.6"
+
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
