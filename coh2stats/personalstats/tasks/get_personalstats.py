@@ -1,4 +1,4 @@
-from coh2stats import dao
+from coh2stats.dao import DAO
 from huey import crontab
 from coh2stats.config import schedule
 from coh2stats.config import Config
@@ -6,6 +6,7 @@ import asyncio
 import aiohttp
 
 config = Config()
+dao = DAO()
 
 
 async def get_players_profiles(players_profiles_ids, session):
@@ -64,6 +65,7 @@ async def get_data():
             results.extend(stats)
 
     dao.insert_playerstats(results)
+    dao.close()
 
 
 def chunks(l, n):

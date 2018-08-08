@@ -45,3 +45,6 @@ class DAO:
 
     def get_players_to_track(self):
         return list(self.db.trackplayers.find())
+
+    def close(self):
+        return self.mc.close()

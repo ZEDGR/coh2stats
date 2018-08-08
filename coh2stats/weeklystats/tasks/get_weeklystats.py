@@ -1,4 +1,4 @@
-from coh2stats import dao
+from coh2stats.dao import DAO
 from huey import crontab
 from coh2stats.config import schedule
 from coh2stats.config import Config
@@ -8,10 +8,9 @@ import json
 import urllib.request
 import urllib.parse
 import datetime
-import pymongo
-import os
 
 config = Config()
+dao = DAO()
 
 # Countries selection
 COUNTRIES = ("gr", "cy")
@@ -148,6 +147,7 @@ async def gather():
 
     results = {'created': datetime.datetime.utcnow(), 'stats': results}
     dao.insert_weeklystats(results)
+    dao.close()
 
 
 @schedule.periodic_task(crontab(hour='14', minute='30', day_of_week='6'))
