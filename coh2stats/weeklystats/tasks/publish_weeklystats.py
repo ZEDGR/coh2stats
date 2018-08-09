@@ -13,7 +13,7 @@ IMG_TEAMS_PATH = config.STATS_TEAMS_URL.split('/')[-2] + '.png'
 
 
 async def take_screenshot_from_url(url, img_path):
-    browser = await launch()
+    browser = await launch(args=['--no-sandbox'])
     page = await browser.newPage()
     await page.goto(url, waitUntil='networkidle0')
     await page.screenshot(path=img_path, fullPage=True)
