@@ -153,7 +153,4 @@ async def gather():
 @schedule.periodic_task(crontab(hour='14', minute='30', day_of_week='6'))
 def get_weeklystats_main():
     eloop = asyncio.get_event_loop()
-    try:
-        eloop.run_until_complete(gather())
-    finally:
-        eloop.close()
+    eloop.run_until_complete(gather())

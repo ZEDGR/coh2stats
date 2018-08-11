@@ -39,10 +39,7 @@ def get_fb_api(cfg):
 @schedule.periodic_task(crontab(hour='15', minute='0', day_of_week='6'))
 def publish_weeklystats_main():
     eloop = asyncio.get_event_loop()
-    try:
-        eloop.run_until_complete(take_screenshots())
-    finally:
-        eloop.close()
+    eloop.run_until_complete(take_screenshots())
 
     fb_cfg = {
         'page_id': config.FB_GROUP_ID,

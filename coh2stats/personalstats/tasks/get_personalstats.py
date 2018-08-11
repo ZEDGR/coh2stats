@@ -77,7 +77,4 @@ def chunks(l, n):
 @schedule.periodic_task(crontab(hour='20', minute='0'))
 def get_personalstats_main():
     eloop = asyncio.get_event_loop()
-    try:
-        eloop.run_until_complete(get_data())
-    finally:
-        eloop.close()
+    eloop.run_until_complete(get_data())
