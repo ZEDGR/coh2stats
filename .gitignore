@@ -1,3 +1,8 @@
+# Generated images
+*.png
+*.jpg
+*.jpeg
+
 # Config
 config.json
 
