@@ -35,6 +35,13 @@
             "index": "pypi",
             "version": "==1.2.0"
         },
+        "appdirs": {
+            "hashes": [
+                "sha256:9e5896d1372858f8dd3344faf4e5014d21849c756c8d5701f78f8a103b372d92",
+                "sha256:d8b24664561d0d34ddfaec54636d502d7cea6e29c3eaf68f3df6180863e2166e"
+            ],
+            "version": "==1.4.3"
+        },
         "async-timeout": {
             "hashes": [
                 "sha256:474d4bc64cee20603e225eb1ece15e248962958b45a3648a9f5cc29e827a610c",
@@ -68,11 +75,12 @@
         },
         "facebook-sdk": {
             "hashes": [
-                "sha256:55b79292de407fb25be06594e0d7bcd36923c75499d5df18ff9da507d0fdb557",
-                "sha256:ddbcdd01187374f96e2c0ee574ad592673af49a9f895887bf1b112b9c8298e10"
+                "sha256:8ef0a0d2c98a515a926875bb4be9c9a4630a39fc8190bff8d5265d58af1ef257",
+                "sha256:c94df84b2bba1c497684c169ed28a713b57917bf56f95fba4c2a5290c16ce81e",
+                "sha256:f3d450ec313b62d3716fadc4e5098183760e1d2a9e0434a94b74e59ea6ea3e4d"
             ],
             "index": "pypi",
-            "version": "==2.0.0"
+            "version": "==3.0.0"
         },
         "flask": {
             "hashes": [
@@ -231,10 +239,10 @@
         },
         "pyppeteer": {
             "hashes": [
-                "sha256:c35cff5c3b4d3c391c10a85b1a56b9f39daf18c795b0d8f6e0b7eaeac1ad5be3"
+                "sha256:acbf83a50648c0d7b5de9c050a313f70f188aac93ae845d0926396f8c4e51363"
             ],
             "index": "pypi",
-            "version": "==0.0.19"
+            "version": "==0.0.20"
         },
         "redis": {
             "hashes": [
@@ -250,12 +258,20 @@
             ],
             "version": "==2.19.1"
         },
+        "tqdm": {
+            "hashes": [
+                "sha256:536e5a0205b6401d8aaf04b21469949c178dbe3642e3c76d3bb494a83cb22a10",
+                "sha256:60bbaa6700e87a250f6abcbbd7ddb33243ad592240ba46afce5305b15b406fad"
+            ],
+            "markers": "python_version != '3.0.*' and python_version >= '2.6' and python_version != '3.1.*'",
+            "version": "==4.24.0"
+        },
         "urllib3": {
             "hashes": [
                 "sha256:a68ac5e15e76e7e5dd2b8f94007233e01effe3e50e8daddf69acfd81cb686baf",
                 "sha256:b5725a0bd4ba422ab0e66e89e030c806576753ea3ee08554382c14e685d117b5"
             ],
-            "markers": "python_version >= '2.6' and python_version != '3.1.*' and python_version != '3.2.*' and python_version < '4' and python_version != '3.0.*' and python_version != '3.3.*'",
+            "markers": "python_version < '4' and python_version != '3.2.*' and python_version != '3.3.*' and python_version != '3.1.*' and python_version != '3.0.*' and python_version >= '2.6'",
             "version": "==1.23"
         },
         "websockets": {
@@ -312,10 +328,10 @@
     "develop": {
         "astroid": {
             "hashes": [
-                "sha256:a48b57ede295c3188ef5c84273bc2a8eadc46e4cbb001eae0d49fb5d1fabbb19",
-                "sha256:d066cdeec5faeb51a4be5010da612680653d844b57afd86a5c8315f2f801b4cc"
+                "sha256:292fa429e69d60e4161e7612cb7cc8fa3609e2e309f80c224d93a76d5e7b58be",
+                "sha256:c7013d119ec95eb626f7a2011f0b63d0c9a095df9ad06d8507b37084eada1a8d"
             ],
-            "version": "==2.0.2"
+            "version": "==2.0.4"
         },
         "autopep8": {
             "hashes": [
@@ -330,7 +346,7 @@
                 "sha256:b9c40e9750f3d77e6e4d441d8b0266cf555e7cdabdcff33c4fd06366ca761ef8",
                 "sha256:ec9ef8f4a9bc6f71eec99e1806bfa2de401650d996c59330782b89a5555c1497"
             ],
-            "markers": "python_version != '3.0.*' and python_version != '3.3.*' and python_version != '3.2.*' and python_version != '3.1.*' and python_version >= '2.7'",
+            "markers": "python_version >= '2.7' and python_version != '3.2.*' and python_version != '3.0.*' and python_version != '3.3.*' and python_version != '3.1.*'",
             "version": "==4.3.4"
         },
         "lazy-object-proxy": {
@@ -422,15 +438,8 @@
                 "sha256:edb04bdd45bfd76c8292c4d9654568efaedf76fe78eb246dde69bdb13b2dad87",
                 "sha256:f19f2a4f547505fe9072e15f6f4ae714af51b5a681a97f187971f50c283193b6"
             ],
+            "markers": "python_version < '3.7' and implementation_name == 'cpython'",
             "version": "==1.1.0"
-        },
-        "typing": {
-            "hashes": [
-                "sha256:3a887b021a77b292e151afb75323dea88a7bc1b3dfa92176cff8e44c8b68bddf",
-                "sha256:b2c689d54e1144bbcfd191b0832980a21c2dbcf7b5ff7a66248a60c90e951eb8",
-                "sha256:d400a9344254803a2368533e4533a4200d21eb7b6b729c173bc38201a74db3f2"
-            ],
-            "version": "==3.6.4"
         },
         "wrapt": {
             "hashes": [
