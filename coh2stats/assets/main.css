@@ -389,3 +389,7 @@ i.stable {
     padding-bottom: 10px;
     color: #aa8b0b;
 }
+
+i.up, i.down {
+    padding-left: 19px;
+}

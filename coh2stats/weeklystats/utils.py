@@ -24,9 +24,13 @@ def get_players_stats(current_results, previous_results):
             else:
                 player_previous_index = previous_sorted_players_ids[faction].index(player['player']['profile_id'])
                 if player_previous_index > player_current_index:
+                    pos = player_previous_index - player_current_index
                     player['player']['dynamic'] = 'U'
+                    player['player']['pos_shift'] = pos
                 elif player_previous_index < player_current_index:
+                    pos = player_current_index - player_previous_index
                     player['player']['dynamic'] = 'D'
+                    player['player']['pos_shift'] = pos
                 else:
                     player['player']['dynamic'] = 'S'
 
@@ -69,9 +73,13 @@ def get_teams_stats(current_results, previous_results):
             else:
                 previous_team_index = previous_sorted_teams_players_ids[gametype]['allies'].index(team)
                 if previous_team_index > current_team_index:
+                    pos = previous_team_index - current_team_index
                     current_sorted_results[gametype]['allies'][current_team_index]['dynamic'] = 'U'
+                    current_sorted_results[gametype]['allies'][current_team_index]['pos_shift'] = pos
                 elif previous_team_index < current_team_index:
+                    pos = current_team_index - previous_team_index
                     current_sorted_results[gametype]['allies'][current_team_index]['dynamic'] = 'D'
+                    current_sorted_results[gametype]['allies'][current_team_index]['pos_shift'] = pos
                 else:
                     current_sorted_results[gametype]['allies'][current_team_index]['dynamic'] = 'S'
 
