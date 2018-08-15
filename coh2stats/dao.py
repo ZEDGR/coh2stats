@@ -6,7 +6,6 @@ config = Config()
 
 
 class DAO:
-
     def __init__(self):
         mongo_host = config.MONGO_HOST
         mongo_port = config.MONGO_PORT

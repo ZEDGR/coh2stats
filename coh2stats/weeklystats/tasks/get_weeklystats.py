@@ -73,9 +73,9 @@ async def get_results(matchtype, matchtype_id, aio_session, positions, sortBy=1,
         async with aio_session.get(config.SPECIFIC_LEADERBOARD, params=params, headers=config.HTTP_HEADERS) as response:
             response = await response.json()
 
-            # if the leaderboardStats array is empty
-            # we have exhausted this category
+            # if the leaderboardStats is empty then we have exhausted this category
             if not response['leaderboardStats'] or current_position > positions:
+                category_results = sorted(category_results, key=lambda k: k['rank'])
                 return (matchtype, category_results)
 
             params['start'] += step
