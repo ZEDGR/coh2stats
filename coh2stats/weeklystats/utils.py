@@ -98,7 +98,7 @@ def _set_team_dynamic(current_team_index, team, previous_teams_results, current_
 
 
 def _get_time_since_last_game(date_taken, last_match_date):
-    last_match_date = datetime.datetime.fromtimestamp(last_match_date)
+    last_match_date = datetime.datetime.utcfromtimestamp(last_match_date)
     delta = date_taken - last_match_date
 
     if delta.days > 1:
