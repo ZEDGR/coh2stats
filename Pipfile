@@ -3,13 +3,16 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+
 [packages]
 aiohttp = "==1.2.0"
 pymongo = "==3.7.0"
 gunicorn = "*"
 meinheld = "*"
 facebook-sdk = "*"
-huey = {version = "*", extras = ["backends"]}
 chardet = "==3.0.4"
 click = "==6.7"
 idna = "==2.7"
@@ -22,14 +25,11 @@ async_timeout = "==3.0.0"
 MarkupSafe = "==1.0"
 Werkzeug = "==0.14.1"
 pyppeteer = "*"
+huey = "*"
 
 [dev-packages]
-pylint = "*"
 "autopep8" = "*"
+flake8 = "*"
 
 [requires]
 python_version = "3.6"
-
-[[source]]
-url = "https://pypi.org/simple"
-verify_ssl = true
