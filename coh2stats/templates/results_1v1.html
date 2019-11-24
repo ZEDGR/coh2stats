@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Company of Heroes Greece - Community Rankings For 1v1</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,500,700">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}" media="all">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+    crossorigin="anonymous">
+</head>
+
+<body>
+
+  <div class="content">
+    <div id="lb_source">
+      <div class="lb-host lang en">
+        <h1 class="coh2-logo">
+          <img alt="Company of Heroes 2" src="{{ url_for('static', filename='images/coh2-logo.png') }}">
+          <img alt="Greek Flag" width="100" height="61" src="{{ url_for('static', filename='images/flag.jpg') }}">
+        </h1>
+        <article class="player-profile lb-container">
+          <header>
+            <div class="title-area">
+              <h1 class="page-title">COMMUNITY RANKINGS FOR 1v1</h1>
+            </div>
+          </header>
+          <div class="content-area">
+            <section class="tab-container standings-breakdown">
+              <h2>
+                <img src="{{ url_for('static', filename='images/md_0_001.png') }}" title="Wehrmacht">
+                <span>Wehrmacht</span>
+              </h2>
+              <div class="faction-standings-container">
+                <table class="faction-standings">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th class="mode">Name</th>
+                      <th class="dynamic"></th>
+                      <th class="rank">Rank</th>
+                      <th class="streak">Streak</th>
+                      <th class="wins">Wins</th>
+                      <th class="losses">Losses</th>
+                      <th class="ratio">Ratio</th>
+                      <th class="total">Total</th>
+                      <th class="last">Last Game</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for player in stats['German'] %}
+                    <tr>
+                      <td>{{ loop.index }}.</td>
+                      <td class="mode f16">
+                        <h3>
+                          <a href="https://www.companyofheroes.com/leaderboards#profile{{ player['player']['steam_id'] }}" target="_blank" class="player-link">{{ player['player']['name'] }}</a>
+                        </h3>
+                      </td>
+                      <td class="dynamic">
+                        {% if player['player']['dynamic'] == 'N' %}
+                        <i class="fa new">&#xf0a3;</i>
+                        {% elif player['player']['dynamic'] == 'U' %}
+                        <i class="fa up">&#xf062; &#40;{{ player['player']['pos_shift'] }}&#41;</i>
+                        {% elif player['player']['dynamic'] == 'D' %}
+                        <i class="fa down">&#xf063; &#40;{{ player['player']['pos_shift'] }}&#41;</i>
+                        {% else %}
+                        <i class="fa stable">&#xf2d1;</i>
+                        {% endif %}
+                      </td>
+                      <td class="rank">{{ player['rank'] }}</td>
+                      {% if player['streak'] > 0 %}
+                      <td class="streak winning">+{{ player['streak'] }}</td>
+                      {% else %}
+                      <td class="streak losing">{{ player['streak'] }}</td>
+                      {% endif %}
+                      <td class="wins">{{ player['wins'] }}</td>
+                      <td class="losses">{{ player['losses'] }}</td>
+                      <td class="ratio">{{ player['ratio'] }}</td>
+                      <td class="total">{{ player['total'] }}</td>
+                      {% set last_game_partition = player['last_game'].partition('days') %} {% set days = last_game_partition[0] %} {% set days_exist
+                      = last_game_partition[1] %} {% if not days_exist %}
+                      <td class="last">{{ player['last_game'] }}</td>
+                      {% else %} {% if days | int > 20 %}
+                      <td class="last deactivation">{{ player['last_game'] }}</td>
+                      {% elif days | int >= 15 %}
+                      <td class="last near_deactivation">{{ player['last_game'] }}</td>
+                      {% else %}
+                      <td class="last">{{ player['last_game'] }}</td>
+                      {% endif %} {% endif %}
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+
+
+              <h2>
+                <img src="{{ url_for('static', filename='images/md_1.png') }}" title="Soviet">
+                <span>Soviet</span>
+              </h2>
+              <div class="faction-standings-container">
+                <table class="faction-standings">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th class="mode">Name</th>
+                      <th class="dynamic"></th>
+                      <th class="rank">Rank</th>
+                      <th class="streak">Streak</th>
+                      <th class="wins">Wins</th>
+                      <th class="losses">Losses</th>
+                      <th class="ratio">Ratio</th>
+                      <th class="total">Total</th>
+                      <th class="last">Last Game</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for player in stats['Soviet'] %}
+                    <tr>
+                      <td>{{ loop.index }}.</td>
+                      <td class="mode f16">
+                        <h3>
+                          <a href="https://www.companyofheroes.com/leaderboards#profile{{ player['player']['steam_id'] }}" target="_blank" class="player-link">{{ player['player']['name'] }}</a>
+                        </h3>
+                      </td>
+                      <td class="dynamic">
+                        {% if player['player']['dynamic'] == 'N' %}
+                        <i class="fa new">&#xf0a3;</i>
+                        {% elif player['player']['dynamic'] == 'U' %}
+                        <i class="fa up">&#xf062; &#40;{{ player['player']['pos_shift'] }}&#41;</i>
+                        {% elif player['player']['dynamic'] == 'D' %}
+                        <i class="fa down">&#xf063; &#40;{{ player['player']['pos_shift'] }}&#41;</i>
+                        {% else %}
+                        <i class="fa stable">&#xf2d1;</i>
+                        {% endif %}
+                      </td>
+                      <td class="rank">{{ player['rank'] }}</td>
+                      {% if player['streak'] > 0 %}
+                      <td class="streak winning">+{{ player['streak'] }}</td>
+                      {% else %}
+                      <td class="streak losing">{{ player['streak'] }}</td>
+                      {% endif %}
+                      <td class="wins">{{ player['wins'] }}</td>
+                      <td class="losses">{{ player['losses'] }}</td>
+                      <td class="ratio">{{ player['ratio'] }}</td>
+                      <td class="total">{{ player['total'] }}</td>
+                      {% set last_game_partition = player['last_game'].partition('days') %} {% set days = last_game_partition[0] %} {% set days_exist
+                      = last_game_partition[1] %} {% if not days_exist %}
+                      <td class="last">{{ player['last_game'] }}</td>
+                      {% else %} {% if days | int > 20 %}
+                      <td class="last deactivation">{{ player['last_game'] }}</td>
+                      {% elif days | int >= 15 %}
+                      <td class="last near_deactivation">{{ player['last_game'] }}</td>
+                      {% else %}
+                      <td class="last">{{ player['last_game'] }}</td>
+                      {% endif %} {% endif %}
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+
+
+              <h2>
+                <img src="{{ url_for('static', filename='images/md_2.png') }}" title="Oberkommando West">
+                <span>Oberkommando West</span>
+              </h2>
+              <div class="faction-standings-container">
+                <table class="faction-standings">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th class="mode">Name</th>
+                      <th class="dynamic"></th>
+                      <th class="rank">Rank</th>
+                      <th class="streak">Streak</th>
+                      <th class="wins">Wins</th>
+                      <th class="losses">Losses</th>
+                      <th class="ratio">Ratio</th>
+                      <th class="total">Total</th>
+                      <th class="last">Last Game</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for player in stats['WestGerman'] %}
+                    <tr>
+                      <td>{{ loop.index }}.</td>
+                      <td class="mode f16">
+                        <h3>
+                          <a href="https://www.companyofheroes.com/leaderboards#profile{{ player['player']['steam_id'] }}" target="_blank" class="player-link"
+                            href="#">{{ player['player']['name'] }}</a>
+                        </h3>
+                      </td>
+                      <td class="dynamic">
+                        {% if player['player']['dynamic'] == 'N' %}
+                        <i class="fa new">&#xf0a3;</i>
+                        {% elif player['player']['dynamic'] == 'U' %}
+                        <i class="fa up">&#xf062; &#40;{{ player['player']['pos_shift'] }}&#41;</i>
+                        {% elif player['player']['dynamic'] == 'D' %}
+                        <i class="fa down">&#xf063; &#40;{{ player['player']['pos_shift'] }}&#41;</i>
+                        {% else %}
+                        <i class="fa stable">&#xf2d1;</i>
+                        {% endif %}
+                      </td>
+                      <td class="rank">{{ player['rank'] }}</td>
+                      {% if player['streak'] > 0 %}
+                      <td class="streak winning">+{{ player['streak'] }}</td>
+                      {% else %}
+                      <td class="streak losing">{{ player['streak'] }}</td>
+                      {% endif %}
+                      <td class="wins">{{ player['wins'] }}</td>
+                      <td class="losses">{{ player['losses'] }}</td>
+                      <td class="ratio">{{ player['ratio'] }}</td>
+                      <td class="total">{{ player['total'] }}</td>
+                      {% set last_game_partition = player['last_game'].partition('days') %} {% set days = last_game_partition[0] %} {% set days_exist
+                      = last_game_partition[1] %} {% if not days_exist %}
+                      <td class="last">{{ player['last_game'] }}</td>
+                      {% else %} {% if days | int > 20 %}
+                      <td class="last deactivation">{{ player['last_game'] }}</td>
+                      {% elif days | int >= 15 %}
+                      <td class="last near_deactivation">{{ player['last_game'] }}</td>
+                      {% else %}
+                      <td class="last">{{ player['last_game'] }}</td>
+                      {% endif %} {% endif %}
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+
+
+              <h2>
+                <img src="{{ url_for('static', filename='images/md_3.png') }}" title="US Forces">
+                <span>US Forces</span>
+              </h2>
+              <div class="faction-standings-container">
+                <table class="faction-standings">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th class="mode">Name</th>
+                      <th class="dynamic"></th>
+                      <th class="rank">Rank</th>
+                      <th class="streak">Streak</th>
+                      <th class="wins">Wins</th>
+                      <th class="losses">Losses</th>
+                      <th class="ratio">Ratio</th>
+                      <th class="total">Total</th>
+                      <th class="last">Last Game</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for player in stats['AEF'] %}
+                    <tr>
+                      <td>{{ loop.index }}.</td>
+                      <td class="mode f16">
+                        <h3>
+                          <a href="https://www.companyofheroes.com/leaderboards#profile{{ player['player']['steam_id'] }}" target="_blank" class="player-link">{{ player['player']['name'] }}</a>
+                        </h3>
+                      </td>
+                      <td class="dynamic">
+                        {% if player['player']['dynamic'] == 'N' %}
+                        <i class="fa new">&#xf0a3;</i>
+                        {% elif player['player']['dynamic'] == 'U' %}
+                        <i class="fa up">&#xf062; &#40;{{ player['player']['pos_shift'] }}&#41;</i>
+                        {% elif player['player']['dynamic'] == 'D' %}
+                        <i class="fa down">&#xf063; &#40;{{ player['player']['pos_shift'] }}&#41;</i>
+                        {% else %}
+                        <i class="fa stable">&#xf2d1;</i>
+                        {% endif %}
+                      </td>
+                      <td class="rank">{{ player['rank'] }}</td>
+                      {% if player['streak'] > 0 %}
+                      <td class="streak winning">+{{ player['streak'] }}</td>
+                      {% else %}
+                      <td class="streak losing">{{ player['streak'] }}</td>
+                      {% endif %}
+                      <td class="wins">{{ player['wins'] }}</td>
+                      <td class="losses">{{ player['losses'] }}</td>
+                      <td class="ratio">{{ player['ratio'] }}</td>
+                      <td class="total">{{ player['total'] }}</td>
+                      {% set last_game_partition = player['last_game'].partition('days') %} {% set days = last_game_partition[0] %} {% set days_exist
+                      = last_game_partition[1] %} {% if not days_exist %}
+                      <td class="last">{{ player['last_game'] }}</td>
+                      {% else %} {% if days | int > 20 %}
+                      <td class="last deactivation">{{ player['last_game'] }}</td>
+                      {% elif days | int >= 15 %}
+                      <td class="last near_deactivation">{{ player['last_game'] }}</td>
+                      {% else %}
+                      <td class="last">{{ player['last_game'] }}</td>
+                      {% endif %} {% endif %}
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+
+
+              <h2>
+                <img src="{{ url_for('static', filename='images/md_4.png') }}" title="British Forces">
+                <span>British Forces</span>
+              </h2>
+              <div class="faction-standings-container">
+                <table class="faction-standings">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th class="mode">Name</th>
+                      <th class="dynamic"></th>
+                      <th class="rank">Rank</th>
+                      <th class="streak">Streak</th>
+                      <th class="wins">Wins</th>
+                      <th class="losses">Losses</th>
+                      <th class="ratio">Ratio</th>
+                      <th class="total">Total</th>
+                      <th class="last">Last Game</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for player in stats['British'] %}
+                    <tr>
+                      <td>{{ loop.index }}.</td>
+                      <td class="mode f16">
+                        <h3>
+                          <a href="https://www.companyofheroes.com/leaderboards#profile{{ player['player']['steam_id'] }}" target="_blank" class="player-link">{{ player['player']['name'] }}</a>
+                        </h3>
+                      </td>
+                      <td class="dynamic">
+                        {% if player['player']['dynamic'] == 'N' %}
+                        <i class="fa new">&#xf0a3;</i>
+                        {% elif player['player']['dynamic'] == 'U' %}
+                        <i class="fa up">&#xf062; &#40;{{ player['player']['pos_shift'] }}&#41;</i>
+                        {% elif player['player']['dynamic'] == 'D' %}
+                        <i class="fa down">&#xf063; &#40;{{ player['player']['pos_shift'] }}&#41;</i>
+                        {% else %}
+                        <i class="fa stable">&#xf2d1;</i>
+                        {% endif %}
+                      </td>
+                      <td class="rank">{{ player['rank'] }}</td>
+                      {% if player['streak'] > 0 %}
+                      <td class="streak winning">+{{ player['streak'] }}</td>
+                      {% else %}
+                      <td class="streak losing">{{ player['streak'] }}</td>
+                      {% endif %}
+                      <td class="wins">{{ player['wins'] }}</td>
+                      <td class="losses">{{ player['losses'] }}</td>
+                      <td class="ratio">{{ player['ratio'] }}</td>
+                      <td class="total">{{ player['total'] }}</td>
+                      {% set last_game_partition = player['last_game'].partition('days') %} {% set days = last_game_partition[0] %} {% set days_exist
+                      = last_game_partition[1] %} {% if not days_exist %}
+                      <td class="last">{{ player['last_game'] }}</td>
+                      {% else %} {% if days | int > 20 %}
+                      <td class="last deactivation">{{ player['last_game'] }}</td>
+                      {% elif days | int >= 15 %}
+                      <td class="last near_deactivation">{{ player['last_game'] }}</td>
+                      {% else %}
+                      <td class="last">{{ player['last_game'] }}</td>
+                      {% endif %} {% endif %}
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
+</html>
