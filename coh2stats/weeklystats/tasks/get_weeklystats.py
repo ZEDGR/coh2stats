@@ -3,7 +3,7 @@ from huey import crontab
 from coh2stats.config import schedule
 from coh2stats.config import Config
 import asyncio
-import aiohttp
+import httpx
 import json
 import urllib.request
 import urllib.parse
@@ -22,7 +22,7 @@ TOP_TEAMS = 3
 
 def request_leaderboards(params):
     params = urllib.parse.urlencode(params)
-    url = "{}?{}".format(config.LEADERBOARDS, params)
+    url = "{}?{}".format(config.RELIC_API_BASE_URL+config.LEADERBOARDS, params)
     request = urllib.request.Request(url, headers=config.HTTP_HEADERS)
 
     response = urllib.request.urlopen(request)
@@ -31,7 +31,6 @@ def request_leaderboards(params):
 
 def get_leaderboards():
     matchtypes = {}
-
     params = {'title': "coh2"}
 
     response = request_leaderboards(params)
@@ -57,7 +56,6 @@ def get_leaderboards():
 
 
 async def get_results(matchtype, matchtype_id, aio_session, positions, sortBy=1, step=40, count=40):
-
     params = {
         'leaderboard_id': matchtype_id,
         'title': "coh2",
@@ -70,47 +68,52 @@ async def get_results(matchtype, matchtype_id, aio_session, positions, sortBy=1,
     category_results = []
 
     while True:
-        async with aio_session.get(config.SPECIFIC_LEADERBOARD, params=params, headers=config.HTTP_HEADERS) as response:
-            response = await response.json()
+        session_response = await aio_session.get(
+            config.SPECIFIC_LEADERBOARD,
+            params=params,
+            headers=config.HTTP_HEADERS
+        )
+        response = session_response.json()
 
-            # if the leaderboardStats is empty then we have exhausted this category
-            if not response['leaderboardStats'] or current_position > positions:
-                category_results = sorted(category_results, key=lambda k: k['rank'])
-                return (matchtype, category_results)
+        # if the leaderboardStats is empty then we have exhausted this category
+        if not response['leaderboardStats'] or current_position > positions:
+            category_results = sorted(category_results, key=lambda k: k['rank'])
+            return (matchtype, category_results)
 
-            params['start'] += step
+        params['start'] += step
 
-            for group in response['statGroups']:
-                found = all(member['country'] in COUNTRIES for member in group['members'])
-                if found:
-                    print("found for matchtype:", matchtype)
+        for group in response['statGroups']:
+            found = all(member['country'] in COUNTRIES for member in group['members'])
+            if found:
+                print("found for matchtype:", matchtype)
 
-                    stats = next(stats for stats in response['leaderboardStats']
-                                 if stats['statGroup_id'] == group['id'])
-                    results = dict(stats)
-                    results['total'] = results['wins'] + results['losses']
-                    results['ratio'] = f"{results['wins'] / results['total']:.0%}"
-                    if matchtype.startswith('1v1'):
-                        results['player'] = {
-                            'profile_id': group['members'][0]['profile_id'],
-                            'steam_id': group['members'][0]['name'],
-                            'name': group['members'][0]['alias'],
-                            'country': group['members'][0]['country']
+                stats = next(stats for stats in response['leaderboardStats']
+                             if stats['statGroup_id'] == group['id'])
+                results = dict(stats)
+                results['total'] = results['wins'] + results['losses']
+                results['ratio'] = f"{results['wins'] / results['total']:.0%}"
+
+                if matchtype.startswith('1v1'):
+                    results['player'] = {
+                        'profile_id': group['members'][0]['profile_id'],
+                        'steam_id': group['members'][0]['name'],
+                        'name': group['members'][0]['alias'],
+                        'country': group['members'][0]['country']
+                    }
+                else:
+                    results['players'] = [
+                        {
+                            'profile_id': member['profile_id'],
+                            'steam_id': member['name'],
+                            'name': member['alias'],
+                            'country': member['country']
                         }
-                    else:
-                        results['players'] = [
-                            {
-                                'profile_id': member['profile_id'],
-                                'steam_id': member['name'],
-                                'name': member['alias'],
-                                'country': member['country']
-                            }
-                            for member in group['members']
-                        ]
-                    category_results.append(results)
-                    current_position += 1
-                    if current_position > positions:
-                        break
+                        for member in group['members']
+                    ]
+                category_results.append(results)
+                current_position += 1
+                if current_position > positions:
+                    break
 
 
 def normalize(data):
@@ -131,10 +134,10 @@ def normalize(data):
     return normalized
 
 
-async def gather():
+async def gather_stats():
     matchtypes = get_leaderboards()
 
-    async with aiohttp.ClientSession() as aio_session:
+    async with httpx.AsyncClient(base_url=config.RELIC_API_BASE_URL, timeout=None) as aio_session:
         results = [
             get_results(matchtype, matchtype_id, aio_session, TOP_PLAYERS) if matchtype.startswith('1v1')
             else get_results(matchtype, matchtype_id, aio_session, TOP_TEAMS)
@@ -142,7 +145,6 @@ async def gather():
         ]
 
         completed_tasks = await asyncio.gather(*results)
-
         results = normalize([task for task in completed_tasks])
 
     results = {'created': datetime.datetime.utcnow(), 'stats': results}
@@ -153,4 +155,4 @@ async def gather():
 @schedule.periodic_task(crontab(hour='14', minute='30', day_of_week='6'))
 def get_weeklystats_main():
     eloop = asyncio.get_event_loop()
-    eloop.run_until_complete(gather())
+    eloop.run_until_complete(gather_stats())

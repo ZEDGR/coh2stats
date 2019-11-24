@@ -1,8 +1,8 @@
-from huey.contrib.sqlitedb import SqliteHuey
+from huey import SqliteHuey
 import os
 import json
 
-schedule = SqliteHuey('coh2stats', filename='test.db')
+schedule = SqliteHuey('test.db', utc=False)
 
 
 class Config:
@@ -13,6 +13,7 @@ class Config:
     MONGO_PORT = os.environ.get('MONGO_PORT')
 
     # Relic APIs
+    RELIC_API_BASE_URL = os.environ.get('RELIC_API_BASE_URL')
     LEADERBOARDS = os.environ.get('LEADERBOARDS')
     SPECIFIC_LEADERBOARD = os.environ.get('SPECIFIC_LEADERBOARD')
     PROFILES_STATS = os.environ.get('PROFILES_STATS')
