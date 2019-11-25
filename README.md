@@ -6,8 +6,13 @@ Currently under development
 ### Requirements:
 
 - flask
-- aiohttp
+- httpx
 - pymongo
+- facebook-sdk
+- huey
+- gunicorn
+- meinheld
+- pyppeteer
 
 ### Python version support:
 
