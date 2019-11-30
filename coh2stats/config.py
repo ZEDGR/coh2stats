@@ -29,3 +29,10 @@ class Config:
 
     # Relic Headers
     HTTP_HEADERS = json.load(open('config.json'))
+
+    # Email Settings
+    EMAIL_PORT = os.environ.get('EMAIL_PORT')
+    SMTP_SERVER = os.environ.get('SMTP_SERVER')
+    SENDER_EMAIL = os.environ.get('SENDER_EMAIL')
+    SENDER_PASSWORD = os.environ.get('SENDER_PASSWORD')
+    RECEIVER_EMAIL = os.environ.get('RECEIVER_EMAIL')

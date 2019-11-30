@@ -26,6 +26,10 @@ class DAO:
     def insert_weeklystats(self, data):
         return self.db.weeklystats.insert_one(data)
 
+    def get_latest_weeklystats(self):
+        collection = self.db.weeklystats
+        return list(collection.find().sort('created', -1).limit(1))
+
     def get_weeklystats_1v1(self):
         collection = self.db.weeklystats
         return list(collection.find({}, {'created': 1, 'stats.1v1': 1, '_id': 0}).sort('created', -1).limit(2))

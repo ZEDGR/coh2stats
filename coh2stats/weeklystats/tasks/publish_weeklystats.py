@@ -1,6 +1,8 @@
 from huey import crontab
+from coh2stats.dao import DAO
 from coh2stats.config import schedule
 from coh2stats.config import Config
+from coh2stats.mail import send_error_mail
 from pyppeteer import launch
 from datetime import datetime
 import asyncio
@@ -8,6 +10,7 @@ import json
 import facebook
 
 config = Config()
+dao = DAO()
 IMG_1V1_PATH = config.STATS_1v1_URL.split('/')[-2] + '.png'
 IMG_TEAMS_PATH = config.STATS_TEAMS_URL.split('/')[-2] + '.png'
 
@@ -36,8 +39,16 @@ def get_fb_api(cfg):
     return graph
 
 
-@schedule.periodic_task(crontab(hour='15', minute='0', day_of_week='6'))
+@schedule.periodic_task(crontab(hour='18', minute='12', day_of_week='6'))
 def publish_weeklystats_main():
+    stats = dao.get_latest_weeklystats()
+    if not stats or stats[0]['created'].date() != datetime.now().date():
+        message = """\
+        Subject: CoH2Stats Failed to Publish Data
+
+        Failed to get data from the Relic API :("""
+        send_error_mail(message)
+        return
     eloop = asyncio.get_event_loop()
     eloop.run_until_complete(take_screenshots())
 
