@@ -11,7 +11,7 @@ import facebook
 
 config = Config()
 dao = DAO()
-IMG_1V1_PATH = config.STATS_1v1_URL.split('/')[-2] + '.png'
+IMG_1V1_PATH = config.STATS_1V1_URL.split('/')[-2] + '.png'
 IMG_TEAMS_PATH = config.STATS_TEAMS_URL.split('/')[-2] + '.png'
 
 

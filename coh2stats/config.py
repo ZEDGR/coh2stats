@@ -20,7 +20,7 @@ class Config:
     RECENT_MATCH_HISTORY = os.environ.get('RECENT_MATCH_HISTORY')
 
     # Endpoints for screenshots
-    STATS_1v1_URL = os.environ.get('STATS_1v1_URL')
+    STATS_1V1_URL = os.environ.get('STATS_1v1_URL')
     STATS_TEAMS_URL = os.environ.get('STATS_TEAMS_URL')
 
     # Facebook Settings
