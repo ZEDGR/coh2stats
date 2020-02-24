@@ -42,7 +42,8 @@ def get_fb_api(cfg):
 @schedule.periodic_task(crontab(hour='18', minute='12', day_of_week='6'))
 def publish_weeklystats_main():
     stats = dao.get_latest_weeklystats()
-    if not stats or stats[0]['created'].date() != datetime.now().date():
+    stats_id = stats[0]['_id']
+    if not stats or stats[0]['createdAt'].date() != datetime.now().date():
         subject = "CoH2 Stats"
         message = "Failed to get data from the API Server"
         send_error_mail(subject, message)
@@ -62,3 +63,4 @@ def publish_weeklystats_main():
     attached_media = json.dumps([{'media_fbid': str(id_1v1)}, {'media_fbid': str(id_teams)}])
     message = f'Στατιστικά Ελληνικής Κοινότητας {datetime.now():%d/%m/%Y}'
     fb_api.put_object(parent_object="me", connection_name="feed", attached_media=attached_media, message=message)
+    dao.set_publish(stats_id, True)

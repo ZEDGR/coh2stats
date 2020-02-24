@@ -147,7 +147,11 @@ async def gather_stats():
         completed_tasks = await asyncio.gather(*results)
         results = normalize([task for task in completed_tasks])
 
-    results = {'created': datetime.datetime.utcnow(), 'stats': results}
+    results = {
+        'createdAt': datetime.datetime.utcnow(),
+        'published': False,
+        'stats': results
+    }
     dao.insert_weeklystats(results)
     dao.close()
 
