@@ -43,12 +43,11 @@ def get_fb_api(cfg):
 def publish_weeklystats_main():
     stats = dao.get_latest_weeklystats()
     if not stats or stats[0]['created'].date() != datetime.now().date():
-        message = """\
-        Subject: CoH2Stats Failed to Publish Data
-
-        Failed to get data from the Relic API :("""
-        send_error_mail(message)
+        subject = "CoH2 Stats"
+        message = "Failed to get data from the API Server"
+        send_error_mail(subject, message)
         return
+
     eloop = asyncio.get_event_loop()
     eloop.run_until_complete(take_screenshots())
 
