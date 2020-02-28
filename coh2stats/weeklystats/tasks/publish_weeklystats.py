@@ -24,7 +24,7 @@ async def take_screenshot_from_url(url, img_path):
 
 
 async def take_screenshots():
-    await take_screenshot_from_url(config.STATS_1v1_URL, IMG_1V1_PATH)
+    await take_screenshot_from_url(config.STATS_1V1_URL, IMG_1V1_PATH)
     await take_screenshot_from_url(config.STATS_TEAMS_URL, IMG_TEAMS_PATH)
 
 
