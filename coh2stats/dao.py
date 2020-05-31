@@ -50,7 +50,7 @@ class DAO:
         return list(self.db.trackplayers.find())
 
     def set_publish(self, document_id, published):
-        self.db.find_one_and_update(
+        self.db.weeklystats.find_one_and_update(
             {'_id': document_id},
             {'$set': {'published': published}}
         )
