@@ -39,7 +39,7 @@ def get_fb_api(cfg):
     return graph
 
 
-@schedule.periodic_task(crontab(hour="18", minute="12", day_of_week="6"))
+@schedule.periodic_task(crontab(hour="15", minute="0", day_of_week="5"))
 def publish_weeklystats_main():
     stats = dao.get_latest_weeklystats()
     stats_id = stats[0]["_id"]

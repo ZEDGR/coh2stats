@@ -151,7 +151,7 @@ async def gather_stats():
     dao.close()
 
 
-@schedule.periodic_task(crontab(hour="14", minute="30", day_of_week="6"))
+@schedule.periodic_task(crontab(hour="14", minute="30", day_of_week="5"))
 def get_weeklystats_main():
     eloop = asyncio.get_event_loop()
     eloop.run_until_complete(gather_stats())
