@@ -43,11 +43,11 @@ def get_fb_api(cfg):
 def publish_weeklystats_main():
     stats = dao.get_latest_weeklystats()
     stats_id = stats[0]["_id"]
-    if not stats or stats[0]["createdAt"].date() != datetime.now().date():
-        subject = "CoH2 Stats"
-        message = "Failed to get data from the API Server"
-        send_error_mail(subject, message)
-        return
+    # if not stats or stats[0]["createdAt"].date() != datetime.now().date():
+    #     subject = "CoH2 Stats"
+    #     message = "Failed to get data from the API Server"
+    #     send_error_mail(subject, message)
+    #     return
 
     eloop = asyncio.get_event_loop()
     eloop.run_until_complete(take_screenshots())
