@@ -28,31 +28,34 @@ class DAO:
 
     def get_latest_weeklystats(self):
         collection = self.db.weeklystats
-        return list(collection.find().sort('createdAt', -1).limit(1))
+        return list(collection.find().sort("createdAt", -1).limit(1))
 
     def get_weeklystats_1v1(self):
         collection = self.db.weeklystats
-        return list(collection.find({}, {'createdAt': 1, 'stats.1v1': 1, '_id': 0}).sort('createdAt', -1).limit(2))
+        return list(
+            collection.find({}, {"createdAt": 1, "stats.1v1": 1, "_id": 0})
+            .sort("createdAt", -1)
+            .limit(2)
+        )
 
     def get_weeklystats_teams(self):
         collection = self.db.weeklystats
 
         projection = {
-            'createdAt': 1,
-            'stats.team-of-2': 1,
-            'stats.team-of-3': 1,
-            'stats.team-of-4': 1,
-            '_id': 0
+            "createdAt": 1,
+            "stats.team-of-2": 1,
+            "stats.team-of-3": 1,
+            "stats.team-of-4": 1,
+            "_id": 0,
         }
-        return list(collection.find({}, projection).sort('createdAt', -1).limit(2))
+        return list(collection.find({}, projection).sort("createdAt", -1).limit(2))
 
     def get_players_to_track(self):
         return list(self.db.trackplayers.find())
 
     def set_publish(self, document_id, published):
         self.db.weeklystats.find_one_and_update(
-            {'_id': document_id},
-            {'$set': {'published': published}}
+            {"_id": document_id}, {"$set": {"published": published}}
         )
 
     def close(self):

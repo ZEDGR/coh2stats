@@ -15,9 +15,9 @@ receiver_email = config.RECEIVER_EMAIL
 
 def send_error_mail(subject, message):
     msg = MIMEMultipart()
-    msg['Subject'] = subject
+    msg["Subject"] = subject
 
-    msg.attach(MIMEText(message, 'plain'))
+    msg.attach(MIMEText(message, "plain"))
     context = ssl.create_default_context()
 
     with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
