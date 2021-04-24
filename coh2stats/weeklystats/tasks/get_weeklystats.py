@@ -66,10 +66,16 @@ async def get_results(matchtype, matchtype_id, aio_session, positions, sortBy=1,
     category_results = []
 
     while True:
-        session_response = await aio_session.get(
-            config.SPECIFIC_LEADERBOARD, params=params, headers=config.HTTP_HEADERS
-        )
-        response = session_response.json()
+        session_response = await aio_session.get(config.SPECIFIC_LEADERBOARD, params=params)
+        try:
+            session_response.raise_for_status()
+            response = session_response.json()
+        except httpx.HTTPStatusError as e:
+            if e.response.status_code == 429:
+                print("Retrying because of 429 Error for", matchtype)
+                await asyncio.sleep(60)
+                continue
+            raise e
 
         # if the leaderboardStats is empty then we have exhausted this category
         if not response["leaderboardStats"] or current_position > positions:
@@ -131,7 +137,11 @@ def normalize(data):
 async def gather_stats():
     matchtypes = get_leaderboards()
 
-    async with httpx.AsyncClient(base_url=config.RELIC_API_BASE_URL, timeout=None) as aio_session:
+    async with httpx.AsyncClient(
+        base_url=config.RELIC_API_BASE_URL,
+        headers=config.HTTP_HEADERS,
+        timeout=None,
+    ) as aio_session:
         results = [
             get_results(matchtype, matchtype_id, aio_session, TOP_PLAYERS)
             if matchtype.startswith("1v1")
