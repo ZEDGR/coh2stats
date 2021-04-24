@@ -86,7 +86,7 @@ async def get_results(matchtype, matchtype_id, aio_session, positions, sortBy=1,
                 stats = next(
                     stats
                     for stats in response["leaderboardStats"]
-                    if stats["statGroup_id"] == group["id"]
+                    if stats["statgroup_id"] == group["id"]
                 )
                 results = dict(stats)
                 results["total"] = results["wins"] + results["losses"]
