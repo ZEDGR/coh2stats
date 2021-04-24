@@ -8,7 +8,7 @@ def get_players_stats(current_results, previous_results):
         current_1v1_results[faction] = players
         for player in current_1v1_results[faction]:
             player["last_game"] = _get_time_since_last_game(
-                current_results["createdAt"], player["lastMatchDate"]
+                current_results["createdAt"], player["lastmatchdate"]
             )
 
     # take previous week's players profile ids
@@ -43,12 +43,12 @@ def get_teams_stats(current_results, previous_results):
     for gametype, data in current_results["stats"].items():
         for team in data["Allies"]:
             team["last_game"] = _get_time_since_last_game(
-                current_results["createdAt"], team["lastMatchDate"]
+                current_results["createdAt"], team["lastmatchdate"]
             )
 
         for team in data["Axis"]:
             team["last_game"] = _get_time_since_last_game(
-                current_results["createdAt"], team["lastMatchDate"]
+                current_results["createdAt"], team["lastmatchdate"]
             )
 
         current_team_results[gametype] = {
