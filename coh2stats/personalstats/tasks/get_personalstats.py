@@ -8,24 +8,41 @@ import httpx
 config = Config()
 dao = DAO()
 
+MAX_PLAYERS_PROFILES_PER_REQUEST = 200
+
 
 async def get_players_profiles(players_profiles_ids, session):
-    url = config.PROFILES_STATS.format(players_profiles_ids)
-
-    session_response = await session.get(url)
-    response = session_response.json()
-
     players_profiles = {}
-    for stat_group in response["statGroups"]:
-        for player in stat_group["members"]:
-            if player["profile_id"] in players_profiles_ids:
-                players_profiles[player["profile_id"]] = {
-                    "steam_id": player["name"],
-                    "name": player["alias"],
-                    "country": player["country"],
-                    "level": player["level"],
-                }
+    for chunk_players_profiles_ids in chunks(
+        players_profiles_ids, MAX_PLAYERS_PROFILES_PER_REQUEST
+    ):
+        url = config.PROFILES_STATS.format(chunk_players_profiles_ids)
+
+        session_response = await session.get(url)
+
+        while True:
+            try:
+                session_response.raise_for_status()
+                response = session_response.json()
+            except httpx.HTTPStatusError as e:
+                if e.response.status_code == 429:
+                    print("Retrying because of 429 Error for personal stats")
+                    await asyncio.sleep(60)
+                    continue
+                raise e
+            else:
                 break
+
+        for stat_group in response["statGroups"]:
+            for player in stat_group["members"]:
+                if player["profile_id"] in chunk_players_profiles_ids:
+                    players_profiles[player["profile_id"]] = {
+                        "steam_id": player["name"],
+                        "name": player["alias"],
+                        "country": player["country"],
+                        "level": player["level"],
+                    }
+                    break
     return players_profiles
 
 
@@ -33,7 +50,19 @@ async def get_match_stats(steam_ids, session):
     url = config.RECENT_MATCH_HISTORY.format(steam_ids)
 
     session_response = await session.get(url)
-    response = session_response.json()
+
+    while True:
+        try:
+            session_response.raise_for_status()
+            response = session_response.json()
+        except httpx.HTTPStatusError as e:
+            if e.response.status_code == 429:
+                print("Retrying because of 429 Error for personal stats")
+                await asyncio.sleep(60)
+                continue
+            raise e
+        else:
+            break
 
     players_profiles_ids = [
         report_result["profile_id"]
