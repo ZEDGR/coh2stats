@@ -17,6 +17,9 @@ class DAO:
         self.db = self.mc.coh2stats
 
     def insert_playerstats(self, data):
+        if not data:
+            return
+
         try:
             return self.db.playerstats.insert_many(data, ordered=False)
         except pymongo.errors.BulkWriteError:
