@@ -2,7 +2,6 @@ from flask import render_template, Blueprint
 from coh2stats.weeklystats.utils import get_players_stats
 from coh2stats.weeklystats.utils import get_teams_stats
 from coh2stats import dao
-import os
 
 stats = Blueprint("stats", __name__)
 
